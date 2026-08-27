@@ -18,7 +18,7 @@ export async function createFolder(data: {
       name: data.name,
       description: data.description || null,
       icon: data.icon || "Folder",
-      accentColor: data.accentColor || "#A855F7",
+      accentColor: data.accentColor || "#E63946",
       coverImageUrl: data.coverImageUrl || null,
     })
     .returning();

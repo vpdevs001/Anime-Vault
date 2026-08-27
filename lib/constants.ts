@@ -24,20 +24,21 @@ export const FOLDER_ICONS = [
 ] as const;
 
 // ── Anime-Fusion Accent Color Palette ──
-// Curated colors blending tones from all 6 series
+// A curated "print ink" palette — inspired by all 6 series but tuned into one
+// coherent family of inks/pigments rather than clashing neon per series.
 export const ACCENT_COLORS = [
-  { name: "Chakra Orange", value: "#F97316" },    // Naruto
-  { name: "Rasengan Blue", value: "#3B82F6" },     // Naruto
-  { name: "Sharingan Red", value: "#EF4444" },     // Naruto / AoT
-  { name: "Titan Earth", value: "#A16207" },       // Attack on Titan
-  { name: "Scout Green", value: "#22C55E" },       // AoT Scouts
-  { name: "Slayer Teal", value: "#14B8A6" },       // Demon Slayer
-  { name: "Nichirin Pink", value: "#EC4899" },     // Demon Slayer
-  { name: "Cursed Purple", value: "#A855F7" },     // Jujutsu Kaisen
-  { name: "Domain Indigo", value: "#6366F1" },     // JJK
-  { name: "Death White", value: "#E2E8F0" },       // Death Note
-  { name: "Ryuk Crimson", value: "#DC2626" },      // Death Note
-  { name: "Sukuna Gold", value: "#EAB308" },       // JJK
+  { name: "Hanko Red", value: "#E63946" },        // Signature seal red
+  { name: "Amber Ochre", value: "#D4831F" },      // Naruto
+  { name: "Steel Blue", value: "#4A7C9E" },       // Naruto — Rasengan
+  { name: "Titan Earth", value: "#8B6F47" },      // Attack on Titan
+  { name: "Scout Green", value: "#5A8C69" },      // AoT Scouts
+  { name: "Mist Teal", value: "#2A9D8F" },        // Demon Slayer
+  { name: "Nichirin Pink", value: "#C97B93" },    // Demon Slayer
+  { name: "Cursed Gold", value: "#C9A13B" },      // Jujutsu Kaisen
+  { name: "Domain Ink", value: "#5B5570" },       // JJK — muted indigo
+  { name: "Death Bone", value: "#CFC8B4" },       // Death Note — paper white
+  { name: "Ryuk Crimson", value: "#B5232E" },     // Death Note
+  { name: "Hollow Purple", value: "#7B2CBF" },    // JJK — Gojo Satoru
 ] as const;
 
 // ── Background Images ──
@@ -48,10 +49,10 @@ export const BACKGROUND_IMAGES = [
 ];
 
 export const FALLBACK_GRADIENTS = [
-  "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
-  "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-  "linear-gradient(135deg, #0d0d0d 0%, #1a0a2e 50%, #2d1b69 100%)",
-  "linear-gradient(135deg, #141e30 0%, #243b55 100%)",
+  "linear-gradient(135deg, #0a0a0d 0%, #1c1414 50%, #0a0a0d 100%)",
+  "linear-gradient(135deg, #0a0a0d 0%, #1a1610 50%, #0a0a0d 100%)",
+  "linear-gradient(135deg, #0d0a0a 0%, #201013 50%, #0a0a0d 100%)",
+  "linear-gradient(135deg, #0a0d0c 0%, #101c1a 50%, #0a0a0d 100%)",
 ];
 
 // ── Greeting Messages ──
@@ -66,4 +67,4 @@ export const GREETING_MESSAGES = [
 // ── Default Values ──
 export const DEFAULT_PAGE_SIZE = 40;
 export const DEFAULT_FOLDER_ICON = "Folder";
-export const DEFAULT_ACCENT_COLOR = "#A855F7"; // Cursed Purple
+export const DEFAULT_ACCENT_COLOR = "#E63946"; // Hanko Red

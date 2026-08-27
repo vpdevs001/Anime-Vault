@@ -13,7 +13,7 @@ export const folders = pgTable("folders", {
   name: text("name").notNull(),
   description: text("description"),
   icon: text("icon").notNull().default("Folder"),
-  accentColor: text("accent_color").notNull().default("#A855F7"),
+  accentColor: text("accent_color").notNull().default("#E63946"),
   coverImageUrl: text("cover_image_url"),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
