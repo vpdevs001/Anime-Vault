@@ -10,7 +10,7 @@ export default async function DashboardPage() {
   try {
     const [fData, favData, recData, tagsData] = await Promise.all([
       getFolders(),
-      getFavorites(12),
+      getFavorites({ pageSize: 12 }),
       getRecents(10),
       getAllTags(),
     ]);
@@ -22,7 +22,7 @@ export default async function DashboardPage() {
       accentColor: f.accentColor,
       linkCount: f.linkCount,
     }));
-    favorites = favData.map((link) => ({
+    favorites = favData.favorites.map((link) => ({
       id: link.id,
       url: link.url,
       title: link.title,

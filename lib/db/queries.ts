@@ -104,7 +104,10 @@ export async function getLinksByFolder(
   };
 }
 
-export async function getFavorites(limit?: number) {
+export async function getFavorites(options: { page?: number; pageSize?: number } = {}) {
+  const { page = 1, pageSize = DEFAULT_PAGE_SIZE } = options;
+  const offset = (page - 1) * pageSize;
+
   const result = await db.query.links.findMany({
     where: eq(links.isFavorite, true),
     with: {
@@ -116,9 +119,22 @@ export async function getFavorites(limit?: number) {
       folder: true,
     },
     orderBy: [desc(links.createdAt)],
-    limit: limit ?? 100,
+    limit: pageSize,
+    offset,
   });
-  return result;
+
+  const [{ total }] = await db
+    .select({ total: sql<number>`cast(count(*) as int)` })
+    .from(links)
+    .where(eq(links.isFavorite, true));
+
+  return {
+    favorites: result,
+    total,
+    page,
+    pageSize,
+    totalPages: Math.ceil(total / pageSize),
+  };
 }
 
 export async function getRecents(limit: number = 10) {
@@ -131,7 +147,10 @@ export async function getRecents(limit: number = 10) {
       },
       folder: true,
     },
-    orderBy: [desc(links.createdAt)],
+    // Reflect actual recent activity: a link you just opened should resurface
+    // here even if it was added ages ago. Falls back to createdAt for links
+    // that have never been opened (lastOpenedAt is null).
+    orderBy: [desc(sql`coalesce(${links.lastOpenedAt}, ${links.createdAt})`)],
     limit,
   });
   return result;

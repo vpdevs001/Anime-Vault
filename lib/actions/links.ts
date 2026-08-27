@@ -4,6 +4,7 @@ import { db } from "../db/index";
 import { links, linkTags, tags } from "../db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { getLinksByFolder, getFavorites } from "../db/queries";
 
 export async function createLink(data: {
   folderId: string;
@@ -176,4 +177,21 @@ export async function trackLinkOpen(id: string) {
     .where(eq(links.id, id));
 
   revalidatePath("/");
+}
+
+// Fetches an additional page of links for a folder — used by the "Load More"
+// control on the folder detail view so folders aren't silently capped at
+// DEFAULT_PAGE_SIZE links with no way to see the rest.
+export async function getFolderLinksPage(
+  folderId: string,
+  page: number,
+  sort: "recent" | "alphabetical" | "favorites" = "recent"
+) {
+  return getLinksByFolder(folderId, { page, sort });
+}
+
+// Same idea for the Favorites view — favorites were previously hard-capped
+// at 100 with no way to see the rest.
+export async function getFavoritesPage(page: number) {
+  return getFavorites({ page });
 }
