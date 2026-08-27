@@ -56,7 +56,7 @@ export function TagInput({
         className={cn(
           "flex flex-wrap gap-1.5 p-2 rounded-xl",
           "bg-background-secondary border border-border-custom",
-          "focus-within:border-accent-primary focus-within:shadow-[0_0_0_3px_rgba(230,57,70,0.15)]",
+          "focus-within:border-accent-primary focus-within:shadow-[0_0_0_3px_rgba(255,74,61,0.16)]",
           "transition-all duration-200"
         )}
         onClick={() => inputRef.current?.focus()}

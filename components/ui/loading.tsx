@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { Rasengan } from "@/components/fx/rasengan";
 
 export function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return <div className={cn("skeleton", className)} {...props} />;
@@ -34,21 +35,26 @@ export function FolderCardSkeleton() {
   );
 }
 
+/**
+ * The loader IS a jutsu — a Rasengan forming inside twin cursed seals.
+ */
 export function VaultLoader() {
   return (
-    <div className="flex items-center justify-center py-20">
+    <div className="flex flex-col items-center justify-center py-20 gap-6">
       <div className="relative">
-        {/* Outer ring */}
-        <div className="w-16 h-16 rounded-full border-2 border-accent-primary/20 animate-spin-slow" />
-        {/* Inner ring */}
-        <div
-          className="absolute inset-2 rounded-full border-2 border-transparent border-t-accent-primary animate-spin"
-          style={{ animationDuration: "0.8s" }}
-        />
-        {/* Center dot */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-2 h-2 rounded-full bg-accent-primary animate-pulse-glow" />
-        </div>
+        {/* Outer seal rings */}
+        <div className="cursed-ring absolute -inset-4" />
+        <div className="cursed-ring-rev absolute -inset-8" />
+        {/* The forming rasengan */}
+        <Rasengan size={72} drift={false} />
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="meta-mono text-xs tracking-[0.3em] text-foreground-muted uppercase">
+          Gathering chakra
+        </span>
+        <span className="font-[family-name:var(--font-mincho)] text-sm text-accent-rasengan animate-pulse-glow">
+          螺旋丸
+        </span>
       </div>
     </div>
   );
