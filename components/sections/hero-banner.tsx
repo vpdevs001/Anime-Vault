@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { Rasengan } from "@/components/fx/rasengan";
-import { Chidori } from "@/components/fx/chidori";
+import { Sharingan } from "@/components/fx/sharingan";
 import { CursedOrb } from "@/components/fx/cursed-orb";
 import {
   BACKGROUND_IMAGES,
@@ -73,12 +73,12 @@ export function HeroBanner() {
         忍
       </div>
 
-      {/* ── Layer 4: chidori strikes — top-left, crackling ── */}
+      {/* ── Layer 4: sharingan eyes — top-left, watching ── */}
       <div className="absolute top-3 left-2 sm:top-5 sm:left-6 pointer-events-none">
-        <Chidori width={190} delay={0.6} />
+        <Sharingan size={78} delay={0.6} />
       </div>
-      <div className="absolute top-10 left-16 sm:top-14 sm:left-24 pointer-events-none opacity-70">
-        <Chidori width={130} flip delay={2.9} />
+      <div className="absolute top-16 left-20 sm:top-24 sm:left-32 pointer-events-none opacity-70">
+        <Sharingan size={52} delay={2.4} />
       </div>
 
       {/* ── Layer 5: the Rasengan — floating right of center ── */}
