@@ -55,7 +55,7 @@ export function FolderDetailClient({
   const [isPending, startTransition] = useTransition();
 
   function handleDeleteFolder() {
-    if (!confirm("Delete this folder and all its links?")) return;
+    if (!confirm("Burn this scroll and every link sealed inside it?")) return;
     startTransition(async () => {
       await deleteFolder(folder.id);
       router.push("/");
@@ -84,93 +84,146 @@ export function FolderDetailClient({
       <div className="mb-8">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-accent-primary transition-colors mb-5 meta-mono group"
         >
-          <ArrowLeft size={14} />
-          Back to Dashboard
+          <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
+          Back to the Vault
         </Link>
 
         <div className="flex items-start gap-4">
-          {/* Folder Icon */}
+          {/* Seal icon — ringed by a cursed seal */}
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0"
-            style={{ backgroundColor: `${folder.accentColor}18` }}
+            initial={{ scale: 0.6, opacity: 0, rotate: -12 }}
+            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 16 }}
+            className="relative w-16 h-16 shrink-0"
           >
-            <DynamicIcon
-              name={folder.icon}
-              size={28}
-              style={{ color: folder.accentColor }}
+            <div
+              className="cursed-ring absolute -inset-1.5"
+              style={{ borderColor: `${folder.accentColor}55` }}
             />
+            <div
+              className="absolute inset-0 rounded-md border-2 flex items-center justify-center -rotate-3"
+              style={{
+                borderColor: `${folder.accentColor}77`,
+                backgroundColor: `${folder.accentColor}12`,
+                boxShadow: `0 0 24px ${folder.accentColor}30`,
+              }}
+            >
+              <DynamicIcon
+                name={folder.icon}
+                size={28}
+                style={{ color: folder.accentColor }}
+              />
+            </div>
           </motion.div>
 
           {/* Info */}
           <div className="flex-1 min-w-0">
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-rajdhani)] tracking-wide text-foreground"
+              transition={{ delay: 0.08 }}
+              className="flex items-baseline gap-3 flex-wrap"
             >
-              {folder.name}
-            </motion.h1>
+              <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-rajdhani)] tracking-[0.06em] text-foreground leading-none">
+                {folder.name}
+              </h1>
+              <span
+                className="font-[family-name:var(--font-mincho)] text-lg leading-none"
+                style={{ color: `${folder.accentColor}cc` }}
+              >
+                巻
+              </span>
+            </motion.div>
             {folder.description && (
-              <p className="text-sm text-foreground-muted mt-1">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.16 }}
+                className="text-sm text-foreground-secondary mt-1.5"
+              >
                 {folder.description}
-              </p>
+              </motion.p>
             )}
-            <p className="text-xs text-foreground-muted mt-1">
-              {totalLinks} {totalLinks === 1 ? "link" : "links"}
-            </p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.22 }}
+              className="text-xs text-foreground-muted mt-1.5 meta-mono flex items-center gap-1.5"
+            >
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full"
+                style={{
+                  backgroundColor: folder.accentColor,
+                  boxShadow: `0 0 6px ${folder.accentColor}`,
+                }}
+              />
+              {totalLinks} {totalLinks === 1 ? "link" : "links"} sealed in this scroll
+            </motion.p>
+            <div
+              className="brush-underline animate-brush h-[3px] w-36 mt-2.5"
+              style={{
+                background: `linear-gradient(90deg, ${folder.accentColor} 0%, ${folder.accentColor}88 55%, transparent 100%)`,
+              }}
+            />
           </div>
 
           {/* Actions */}
-          <div className="flex gap-2 shrink-0">
+          <motion.div
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="flex items-center gap-2 shrink-0"
+          >
             <button
               onClick={() => setShowEditFolder(true)}
-              className="btn-ghost p-2.5"
-              title="Edit folder"
+              className="p-2.5 rounded-lg bg-surface border border-[var(--ink-line)] text-foreground-secondary hover:text-foreground hover:border-border-hover transition-all"
+              title="Edit scroll"
             >
               <Pencil size={16} />
             </button>
             <button
               onClick={handleDeleteFolder}
-              className="btn-ghost p-2.5 hover:text-accent-crimson hover:border-accent-crimson/30"
-              title="Delete folder"
+              disabled={isPending}
+              className="p-2.5 rounded-lg bg-surface border border-[var(--ink-line)] text-foreground-secondary hover:text-accent-crimson hover:border-accent-crimson/50 transition-all"
+              title="Burn scroll"
             >
               <Trash2 size={16} />
             </button>
-          </div>
+          </motion.div>
         </div>
-
-        {/* Accent line */}
-        <div
-          className="h-[2px] mt-4 rounded-full opacity-40"
-          style={{
-            background: `linear-gradient(90deg, ${folder.accentColor}, transparent)`,
-          }}
-        />
       </div>
 
-      {/* Links Grid */}
+      {/* Links */}
       {initialLinks.length === 0 ? (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-20 rounded-2xl border border-dashed border-border-custom"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative text-center py-24 rounded-2xl border border-dashed border-[rgba(178,168,255,0.2)] overflow-hidden"
         >
-          <Link2
-            size={40}
-            className="mx-auto text-foreground-muted mb-3"
-          />
-          <p className="text-foreground-secondary text-sm mb-4">
-            No links in this folder yet.
+          <span
+            className="absolute inset-0 flex items-center justify-center font-[family-name:var(--font-mincho)] font-bold text-[9rem] leading-none pointer-events-none select-none"
+            style={{
+              color: "transparent",
+              WebkitTextStroke: `1px ${folder.accentColor}22`,
+            }}
+            aria-hidden
+          >
+            空
+          </span>
+          <Link2 size={40} className="mx-auto text-foreground-muted mb-4 relative animate-float" />
+          <p className="text-foreground-secondary text-sm mb-1 relative">
+            This scroll is still blank.
+          </p>
+          <p className="font-[family-name:var(--font-mincho)] text-foreground-muted/50 text-xs mb-6 relative">
+            白紙の巻物
           </p>
           <button
             onClick={() => setShowAddLink(true)}
-            className="btn-primary px-6"
+            className="btn-primary px-6 relative"
           >
-            Add First Link
+            Seal the First Link
           </button>
         </motion.div>
       ) : (
@@ -199,6 +252,7 @@ export function FolderDetailClient({
         isOpen={showEditFolder}
         onClose={() => setShowEditFolder(false)}
         title="Edit Folder"
+        kanji="巻"
       >
         <FolderForm
           folder={folder}
@@ -214,6 +268,7 @@ export function FolderDetailClient({
         isOpen={showAddLink}
         onClose={() => setShowAddLink(false)}
         title="Add Link"
+        kanji="鎖"
       >
         <LinkForm
           folders={allFolders}
@@ -231,6 +286,7 @@ export function FolderDetailClient({
         isOpen={!!editingLink}
         onClose={() => setEditingLink(null)}
         title="Edit Link"
+        kanji="鎖"
       >
         {editingLink && (
           <LinkForm
@@ -250,6 +306,7 @@ export function FolderDetailClient({
         isOpen={!!movingLinkId}
         onClose={() => setMovingLinkId(null)}
         title="Move to Folder"
+        kanji="移"
       >
         <div className="space-y-2">
           {allFolders
@@ -258,7 +315,7 @@ export function FolderDetailClient({
               <button
                 key={f.id}
                 onClick={() => movingLinkId && handleMoveLink(movingLinkId, f.id)}
-                className="w-full text-left px-4 py-3 rounded-xl hover:bg-surface-hover text-foreground-secondary hover:text-foreground transition-colors"
+                className="w-full text-left px-4 py-3 rounded-lg hover:bg-surface-hover text-foreground-secondary hover:text-foreground transition-colors border border-transparent hover:border-[var(--ink-line)]"
                 disabled={isPending}
               >
                 {f.name}
@@ -266,7 +323,7 @@ export function FolderDetailClient({
             ))}
           {allFolders.filter((f) => f.id !== folder.id).length === 0 && (
             <p className="text-sm text-foreground-muted text-center py-4">
-              No other folders to move to.
+              No other scrolls to move to.
             </p>
           )}
         </div>

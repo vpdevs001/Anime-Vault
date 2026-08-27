@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Heart } from "lucide-react";
 import { LinkCard } from "@/components/cards/link-card";
+import { PageHeader } from "@/components/ui/page-header";
 
 export interface FavoritesClientProps {
   favorites: Array<{
@@ -21,33 +22,34 @@ export interface FavoritesClientProps {
 export function FavoritesClient({ favorites }: FavoritesClientProps) {
   return (
     <div>
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex items-center gap-3 mb-6"
-      >
-        <div className="w-10 h-10 rounded-xl bg-accent-crimson/15 flex items-center justify-center">
-          <Heart size={20} className="text-accent-crimson" />
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold font-[family-name:var(--font-rajdhani)] tracking-wide text-foreground">
-            Favorites
-          </h1>
-          <p className="text-sm text-foreground-muted">
-            {favorites.length} {favorites.length === 1 ? "link" : "links"}
-          </p>
-        </div>
-      </motion.div>
+      <PageHeader
+        icon={<Heart size={24} style={{ color: "#d7263d" }} />}
+        title="Sealed Favorites"
+        kanji="印"
+        accent="#d7263d"
+        subtitle={`${favorites.length} ${favorites.length === 1 ? "scroll" : "scrolls"} bear your seal`}
+      />
 
       {favorites.length === 0 ? (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-20 rounded-2xl border border-dashed border-border-custom"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative text-center py-24 rounded-2xl border border-dashed border-[rgba(178,168,255,0.2)] overflow-hidden"
         >
-          <Heart size={40} className="mx-auto text-foreground-muted mb-3" />
-          <p className="text-foreground-secondary text-sm">
-            No favorites yet. Star any link to see it here!
+          {/* Ghost kanji */}
+          <span
+            className="absolute inset-0 flex items-center justify-center font-[family-name:var(--font-mincho)] font-bold text-[10rem] leading-none pointer-events-none select-none"
+            style={{ color: "transparent", WebkitTextStroke: "1px rgba(215,38,61,0.12)" }}
+            aria-hidden
+          >
+            空
+          </span>
+          <Heart size={40} className="mx-auto text-accent-crimson/50 mb-4 relative animate-float" />
+          <p className="text-foreground-secondary text-sm relative">
+            No seals stamped yet. Mark any link with the seal to bind it here!
+          </p>
+          <p className="font-[family-name:var(--font-mincho)] text-foreground-muted/50 text-xs mt-2 relative">
+            まだ印がない
           </p>
         </motion.div>
       ) : (

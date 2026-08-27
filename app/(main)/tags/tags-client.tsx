@@ -6,6 +6,7 @@ import { Tag, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { deleteTag } from "@/lib/actions/tags";
 import { useRouter } from "next/navigation";
+import { PageHeader } from "@/components/ui/page-header";
 
 interface TagsClientProps {
   tags: Array<{
@@ -20,7 +21,7 @@ export function TagsClient({ tags }: TagsClientProps) {
   const [isPending, startTransition] = useTransition();
 
   function handleDelete(tagId: string, tagName: string) {
-    if (!confirm(`Delete the tag "${tagName}"? This will untag all links.`)) return;
+    if (!confirm(`Burn the talisman "${tagName}"? This will untag all links.`)) return;
     startTransition(async () => {
       await deleteTag(tagId);
       router.refresh();
@@ -29,33 +30,27 @@ export function TagsClient({ tags }: TagsClientProps) {
 
   return (
     <div>
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex items-center gap-3 mb-6"
-      >
-        <div className="w-10 h-10 rounded-xl bg-accent-primary/15 flex items-center justify-center">
-          <Tag size={20} className="text-accent-primary" />
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold font-[family-name:var(--font-rajdhani)] tracking-wide text-foreground">
-            Tags
-          </h1>
-          <p className="text-sm text-foreground-muted">
-            {tags.length} {tags.length === 1 ? "tag" : "tags"}
-          </p>
-        </div>
-      </motion.div>
+      <PageHeader
+        icon={<Tag size={24} style={{ color: "#ff9f2e" }} />}
+        title="Ofuda Talismans"
+        kanji="札"
+        accent="#ff9f2e"
+        subtitle={`${tags.length} ${tags.length === 1 ? "talisman" : "talismans"} in circulation`}
+      />
 
       {tags.length === 0 ? (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-20 rounded-2xl border border-dashed border-border-custom"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative text-center py-24 rounded-2xl border border-dashed border-[rgba(178,168,255,0.2)] overflow-hidden"
         >
-          <Tag size={40} className="mx-auto text-foreground-muted mb-3" />
-          <p className="text-foreground-secondary text-sm">
-            No tags yet. Add tags to your links to organize them!
+          <div className="absolute inset-0 ichimatsu opacity-30 pointer-events-none" />
+          <Tag size={40} className="mx-auto text-accent-chakra/50 mb-4 relative animate-float" />
+          <p className="text-foreground-secondary text-sm relative">
+            No talismans written yet. Tag your links to bind them together!
+          </p>
+          <p className="font-[family-name:var(--font-mincho)] text-foreground-muted/50 text-xs mt-2 relative">
+            札はまだない
           </p>
         </motion.div>
       ) : (
@@ -63,20 +58,23 @@ export function TagsClient({ tags }: TagsClientProps) {
           {tags.map((tag, i) => (
             <motion.div
               key={tag.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.03 }}
+              initial={{ opacity: 0, y: 12, rotate: -1 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ delay: i * 0.03, duration: 0.35 }}
+              whileHover={{ y: -3 }}
               className={cn(
-                "flex items-center justify-between p-4 rounded-xl",
-                "bg-surface border border-border-custom",
-                "hover:border-border-hover hover:bg-surface-hover",
+                "flex items-center justify-between p-4 rounded-lg",
+                "bg-surface border-[1.5px] border-[var(--ink-line)]",
+                "hover:border-accent-chakra/40 hover:bg-surface-hover",
+                "hover:shadow-[3px_3px_0_rgba(255,159,46,0.15)]",
                 "transition-all duration-200 group"
               )}
             >
               <div className="flex items-center gap-3">
-                <div className="tag-chip text-sm px-3 py-1">{tag.name}</div>
-                <span className="text-xs text-foreground-muted">
-                  {tag.count} {tag.count === 1 ? "link" : "links"}
+                <span className="tag-chip text-sm px-3 py-1">{tag.name}</span>
+                <span className="text-xs text-foreground-muted meta-mono">
+                  ×{tag.count}
                 </span>
               </div>
 
@@ -84,6 +82,7 @@ export function TagsClient({ tags }: TagsClientProps) {
                 onClick={() => handleDelete(tag.id, tag.name)}
                 disabled={isPending}
                 className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-accent-crimson/15 text-foreground-muted hover:text-accent-crimson transition-all"
+                title="Burn talisman"
               >
                 <Trash2 size={14} />
               </button>
