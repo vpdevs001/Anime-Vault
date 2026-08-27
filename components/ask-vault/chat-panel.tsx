@@ -89,14 +89,24 @@ export function ChatPanel({ allLinks = [] }: ChatPanelProps) {
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full text-center py-12">
-            <div className="w-16 h-16 rounded-2xl bg-accent-primary/15 flex items-center justify-center mb-4">
-              <Bot size={28} className="text-accent-primary" />
+          <div className="flex flex-col items-center justify-center h-full text-center py-12 relative">
+            <span
+              className="absolute inset-0 flex items-center justify-center font-[family-name:var(--font-mincho)] font-bold text-[9rem] leading-none pointer-events-none select-none"
+              style={{ color: "transparent", WebkitTextStroke: "1px rgba(157,92,255,0.14)" }}
+              aria-hidden
+            >
+              問
+            </span>
+            <div className="relative w-16 h-16 mb-4">
+              <div className="cursed-ring absolute -inset-1.5" />
+              <div className="absolute inset-0 rounded-2xl bg-accent-cursed/15 border border-accent-cursed/40 flex items-center justify-center glow-purple">
+                <Bot size={28} className="text-accent-hollow" />
+              </div>
             </div>
-            <h3 className="text-lg font-bold font-[family-name:var(--font-rajdhani)] text-foreground mb-2">
-              Ask the Vault
+            <h3 className="relative text-xl font-[family-name:var(--font-rajdhani)] tracking-[0.08em] text-foreground mb-2">
+              Ask the Vault Spirit
             </h3>
-            <p className="text-sm text-foreground-muted max-w-xs">
+            <p className="relative text-sm text-foreground-muted max-w-xs">
               Ask me anything about your saved links. Try &ldquo;find that React tutorial&rdquo;
               or &ldquo;show me design resources&rdquo;.
             </p>
@@ -111,17 +121,17 @@ export function ChatPanel({ allLinks = [] }: ChatPanelProps) {
             className={cn("flex gap-3", msg.role === "user" && "justify-end")}
           >
             {msg.role === "assistant" && (
-              <div className="w-8 h-8 rounded-lg bg-accent-primary/15 flex items-center justify-center shrink-0 mt-0.5">
-                <Bot size={16} className="text-accent-primary" />
+              <div className="w-8 h-8 rounded-lg bg-accent-cursed/15 border border-accent-cursed/30 flex items-center justify-center shrink-0 mt-0.5">
+                <Bot size={16} className="text-accent-hollow" />
               </div>
             )}
 
             <div
               className={cn(
-                "max-w-[80%] rounded-2xl px-4 py-3",
+                "max-w-[80%] rounded-2xl px-4 py-3 border",
                 msg.role === "user"
-                  ? "bg-accent-primary/20 text-foreground"
-                  : "bg-surface text-foreground-secondary"
+                  ? "bg-accent-chakra/15 border-accent-chakra/25 text-foreground"
+                  : "bg-surface border-accent-cursed/15 text-foreground-secondary"
               )}
             >
               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
@@ -177,13 +187,13 @@ export function ChatPanel({ allLinks = [] }: ChatPanelProps) {
             animate={{ opacity: 1 }}
             className="flex gap-3"
           >
-            <div className="w-8 h-8 rounded-lg bg-accent-primary/15 flex items-center justify-center shrink-0">
-              <Bot size={16} className="text-accent-primary" />
+            <div className="w-8 h-8 rounded-lg bg-accent-cursed/15 border border-accent-cursed/30 flex items-center justify-center shrink-0">
+              <Bot size={16} className="text-accent-hollow" />
             </div>
-            <div className="bg-surface rounded-2xl px-4 py-3">
+            <div className="bg-surface rounded-2xl px-4 py-3 border border-accent-cursed/15">
               <Loader2
                 size={16}
-                className="animate-spin text-accent-primary"
+                className="animate-spin text-accent-hollow"
               />
             </div>
           </motion.div>
