@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useRef, useEffect } from "react";
 import { motion } from "motion/react";
 import {
   Star,
@@ -51,8 +51,28 @@ export function LinkCard({
   showFolder = false,
 }: LinkCardProps) {
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const [, startTransition] = useTransition();
   const [optimisticFav, setOptimisticFav] = useState(isFavorite);
+
+  // Close the actions menu on outside click. Deliberately NOT a `fixed
+  // inset-0` overlay div: this card sits inside a framer-motion element that
+  // applies an inline `transform`, which makes any `position: fixed`
+  // descendant position itself relative to that transformed ancestor instead
+  // of the viewport — so a fixed overlay here would only ever cover the
+  // card's own bounding box, never the rest of the page, and clicks
+  // elsewhere would never register as "outside." A document-level listener
+  // sidesteps that entirely.
+  useEffect(() => {
+    if (!showMenu) return;
+    function handleClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setShowMenu(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showMenu]);
 
   function handleFavorite(e: React.MouseEvent) {
     e.preventDefault();
@@ -197,7 +217,7 @@ export function LinkCard({
 
         {/* Actions Menu */}
         <div className="absolute top-2 right-2 z-[3] opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="relative">
+          <div className="relative" ref={menuRef}>
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -210,12 +230,7 @@ export function LinkCard({
             </button>
 
             {showMenu && (
-              <>
-                <div
-                  className="fixed inset-0 z-10"
-                  onClick={() => setShowMenu(false)}
-                />
-                <div className="absolute right-0 top-full mt-1 z-20 w-40 py-1 rounded-xl glass border border-glass-border shadow-xl">
+              <div className="absolute right-0 top-full mt-1 z-20 w-40 py-1 rounded-xl glass border border-glass-border shadow-xl">
                   {onEdit && (
                     <button
                       onClick={(e) => {
@@ -256,7 +271,6 @@ export function LinkCard({
                     </button>
                   )}
                 </div>
-              </>
             )}
           </div>
         </div>

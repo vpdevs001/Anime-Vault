@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
-import { Heart } from "lucide-react";
+import { Heart, ChevronDown, Loader2 } from "lucide-react";
 import { LinkCard } from "@/components/cards/link-card";
 import { PageHeader } from "@/components/ui/page-header";
+import { getFavoritesPage } from "@/lib/actions/links";
 
 export interface FavoritesClientProps {
   favorites: Array<{
@@ -17,9 +19,27 @@ export interface FavoritesClientProps {
     linkTags?: { tag: { id: string; name: string } }[];
     folder?: { name: string } | null;
   }>;
+  total?: number;
+  totalPages?: number;
 }
 
-export function FavoritesClient({ favorites }: FavoritesClientProps) {
+export function FavoritesClient({ favorites: initialFavorites, total = 0, totalPages = 1 }: FavoritesClientProps) {
+  const [favorites, setFavorites] = useState(initialFavorites);
+  const [page, setPage] = useState(1);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const hasMore = page < totalPages;
+
+  async function handleLoadMore() {
+    setIsLoadingMore(true);
+    const next = await getFavoritesPage(page + 1);
+    setFavorites((prev) => [
+      ...prev,
+      ...(next.favorites as typeof initialFavorites),
+    ]);
+    setPage((p) => p + 1);
+    setIsLoadingMore(false);
+  }
+
   return (
     <div>
       <PageHeader
@@ -27,7 +47,7 @@ export function FavoritesClient({ favorites }: FavoritesClientProps) {
         title="Sealed Favorites"
         kanji="印"
         accent="#d7263d"
-        subtitle={`${favorites.length} ${favorites.length === 1 ? "scroll" : "scrolls"} bear your seal`}
+        subtitle={`${total || favorites.length} ${(total || favorites.length) === 1 ? "scroll" : "scrolls"} bear your seal`}
       />
 
       {favorites.length === 0 ? (
@@ -53,17 +73,38 @@ export function FavoritesClient({ favorites }: FavoritesClientProps) {
           </p>
         </motion.div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {favorites.map((link, i) => (
-            <LinkCard
-              key={link.id}
-              {...link}
-              index={i}
-              showFolder
-              folderName={link.folder?.name}
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {favorites.map((link, i) => (
+              <LinkCard
+                key={link.id}
+                {...link}
+                index={i}
+                showFolder
+                folderName={link.folder?.name}
+              />
+            ))}
+          </div>
+
+          {hasMore && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={handleLoadMore}
+                disabled={isLoadingMore}
+                className="btn-ghost flex items-center gap-2 disabled:opacity-60"
+              >
+                {isLoadingMore ? (
+                  <Loader2 size={15} className="animate-spin" />
+                ) : (
+                  <ChevronDown size={15} />
+                )}
+                {isLoadingMore
+                  ? "Unsealing more scrolls..."
+                  : `Load more (${favorites.length} of ${total})`}
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import { Pencil, Trash2, ArrowLeft, Link2 } from "lucide-react";
+import { Pencil, Trash2, ArrowLeft, Link2, ChevronDown, Loader2 } from "lucide-react";
 import { DynamicIcon } from "@/components/ui/dynamic-icon";
 import { LinkCard } from "@/components/cards/link-card";
 import { Modal } from "@/components/ui/modal";
@@ -11,7 +11,7 @@ import { FolderForm } from "@/components/forms/folder-form";
 import { LinkForm } from "@/components/forms/link-form";
 import { QuickAddButton } from "@/components/ui/quick-add-button";
 import { deleteFolder } from "@/lib/actions/folders";
-import { deleteLink, moveLink } from "@/lib/actions/links";
+import { deleteLink, moveLink, getFolderLinksPage } from "@/lib/actions/links";
 import Link from "next/link";
 
 export interface FolderDetailClientProps {
@@ -44,6 +44,7 @@ export function FolderDetailClient({
   folder,
   initialLinks,
   totalLinks,
+  totalPages = 1,
   allFolders,
   allTags,
 }: FolderDetailClientProps) {
@@ -53,6 +54,24 @@ export function FolderDetailClient({
   const [editingLink, setEditingLink] = useState<typeof initialLinks[0] | null>(null);
   const [movingLinkId, setMovingLinkId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+
+  // Links accumulate here as the user pages through — the server only ever
+  // sends the first page (DEFAULT_PAGE_SIZE), so anything beyond that would
+  // otherwise be invisible with no indication more links exist.
+  const [links, setLinks] = useState(initialLinks);
+  const [page, setPage] = useState(1);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const hasMore = page < totalPages;
+
+  function handleLoadMore() {
+    setIsLoadingMore(true);
+    startTransition(async () => {
+      const next = await getFolderLinksPage(folder.id, page + 1);
+      setLinks((prev) => [...prev, ...next.links]);
+      setPage((p) => p + 1);
+      setIsLoadingMore(false);
+    });
+  }
 
   function handleDeleteFolder() {
     if (!confirm("Burn this scroll and every link sealed inside it?")) return;
@@ -64,6 +83,7 @@ export function FolderDetailClient({
 
   function handleDeleteLink(linkId: string) {
     if (!confirm("Delete this link?")) return;
+    setLinks((prev) => prev.filter((l) => l.id !== linkId));
     startTransition(async () => {
       await deleteLink(linkId);
       router.refresh();
@@ -71,6 +91,7 @@ export function FolderDetailClient({
   }
 
   function handleMoveLink(linkId: string, newFolderId: string) {
+    setLinks((prev) => prev.filter((l) => l.id !== linkId));
     startTransition(async () => {
       await moveLink(linkId, newFolderId);
       setMovingLinkId(null);
@@ -196,7 +217,7 @@ export function FolderDetailClient({
       </div>
 
       {/* Links */}
-      {initialLinks.length === 0 ? (
+      {links.length === 0 ? (
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
@@ -227,18 +248,39 @@ export function FolderDetailClient({
           </button>
         </motion.div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {initialLinks.map((link, i) => (
-            <LinkCard
-              key={link.id}
-              {...link}
-              index={i}
-              onEdit={() => setEditingLink(link)}
-              onDelete={() => handleDeleteLink(link.id)}
-              onMove={() => setMovingLinkId(link.id)}
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {links.map((link, i) => (
+              <LinkCard
+                key={link.id}
+                {...link}
+                index={i}
+                onEdit={() => setEditingLink(link)}
+                onDelete={() => handleDeleteLink(link.id)}
+                onMove={() => setMovingLinkId(link.id)}
+              />
+            ))}
+          </div>
+
+          {hasMore && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={handleLoadMore}
+                disabled={isLoadingMore}
+                className="btn-ghost flex items-center gap-2 disabled:opacity-60"
+              >
+                {isLoadingMore ? (
+                  <Loader2 size={15} className="animate-spin" />
+                ) : (
+                  <ChevronDown size={15} />
+                )}
+                {isLoadingMore
+                  ? "Unsealing more scrolls..."
+                  : `Load more (${links.length} of ${totalLinks})`}
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {/* Quick Add */}

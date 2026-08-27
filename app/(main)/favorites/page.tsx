@@ -3,10 +3,14 @@ import { FavoritesClient, type FavoritesClientProps } from "./favorites-client";
 
 export default async function FavoritesPage() {
   let favorites: FavoritesClientProps["favorites"] = [];
+  let total = 0;
+  let totalPages = 0;
 
   try {
-    const rawFavorites = await getFavorites();
-    favorites = rawFavorites.map((link) => ({
+    const data = await getFavorites({ page: 1 });
+    total = data.total;
+    totalPages = data.totalPages;
+    favorites = data.favorites.map((link) => ({
       id: link.id,
       url: link.url,
       title: link.title,
@@ -21,5 +25,5 @@ export default async function FavoritesPage() {
     // DB not connected
   }
 
-  return <FavoritesClient favorites={favorites} />;
+  return <FavoritesClient favorites={favorites} total={total} totalPages={totalPages} />;
 }
