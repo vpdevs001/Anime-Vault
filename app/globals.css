@@ -1,58 +1,68 @@
 @import "tailwindcss";
 
-/* ── Anime Vault — "Inked Panel" Theme ── */
-/* A manga-print aesthetic: sumi-ink black, bone-paper text, and a hanko-seal red
-   as the signature accent — halftone texture and offset "sticker" shadows stand
-   in for glassy neon glow. Naruto / AoT / Death Note / Demon Slayer / JJK moods
-   are folded into one coherent print palette instead of clashing neon per-series. */
+/* ══════════════════════════════════════════════════════════════════
+   JUTSU VAULT — "Cursed Night" Theme
+   A night-battle shonen world fusing:
+   · Naruto — rasengan chakra blue, uzumaki swirls, ember orange
+   · Jujutsu Kaisen — cursed-energy violet, hollow purple, seal rings
+   · Demon Slayer — hinokami ember flame, seigaiha waves, ichimatsu
+   · Death Note — gothic engraved caps, bone paper, ryuk crimson
+   · Attack on Titan — manga speed lines, scout green, slash sweeps
+   ══════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── Core Surface Colors ── */
-  --background: #0a0a0d;
-  --background-secondary: #111114;
-  --background-tertiary: #16161a;
-  --surface: #17171b;
-  --surface-hover: #1e1e23;
-  --surface-active: #26262c;
-  --border: rgba(236, 231, 218, 0.10);
-  --border-hover: rgba(230, 57, 70, 0.45);
+  /* ── Core Surfaces — void-black with a violet curse tint ── */
+  --background: #06060b;
+  --background-secondary: #0a0a13;
+  --background-tertiary: #0f0f1a;
+  --surface: #12121d;
+  --surface-hover: #181828;
+  --surface-active: #1f1f31;
+  --border: rgba(178, 168, 255, 0.10);
+  --border-hover: rgba(255, 92, 60, 0.55);
 
-  /* ── Text (warm "bone paper" ink tones, not stark white) ── */
-  --foreground: #ece7da;
-  --foreground-secondary: #a39d8c;
-  --foreground-muted: #6b6558;
+  /* ── Text — bone paper over a lavender shadow ── */
+  --foreground: #f2efe4;
+  --foreground-secondary: #a9a3bd;
+  --foreground-muted: #6a6682;
 
-  /* ── Accent Palette — one coherent print-ink family ── */
-  --accent-primary: #e63946;        /* Hanko Red — the signature stamp color */
-  --accent-secondary: #c9a13b;      /* Cursed Gold (JJK) */
-  --accent-chakra: #d4831f;         /* Amber Ochre (Naruto) */
-  --accent-rasengan: #4a7c9e;       /* Steel Blue (Naruto) */
-  --accent-titan: #8b6f47;          /* Titan Earth (AoT) */
-  --accent-slayer: #2a9d8f;         /* Mist Teal (Demon Slayer) */
-  --accent-crimson: #b5232e;        /* Ryuk Crimson (Death Note) */
-  --accent-sukuna: #c9a13b;         /* Cursed Gold (JJK) */
+  /* ── Accent Palette — the five villages of ink ── */
+  --accent-primary: #ff4a3d;        /* Hinokami Ember — signature flame */
+  --accent-secondary: #9d5cff;      /* Cursed Violet (JJK) */
+  --accent-chakra: #ff9f2e;         /* Uzumaki Orange (Naruto) */
+  --accent-rasengan: #3fc1ff;       /* Chakra Blue (Naruto) */
+  --accent-lightning: #9be7ff;      /* Chidori White-Blue */
+  --accent-cursed: #9d5cff;         /* Cursed Violet (JJK) */
+  --accent-hollow: #c77bff;         /* Hollow Purple (Gojo) */
+  --accent-slayer: #2fd4b7;         /* Mist Teal (Demon Slayer) */
+  --accent-crimson: #d7263d;        /* Ryuk Crimson (Death Note) */
+  --accent-gold: #f2b33d;           /* Cursed Gold */
+  --accent-titan: #6fa672;          /* Scout Green (AoT) */
+  --accent-sukuna: #9d5cff;         /* legacy alias */
 
   /* ── Gradient Presets ── */
-  --gradient-primary: linear-gradient(135deg, #e63946 0%, #c9a13b 100%);
-  --gradient-energy: linear-gradient(135deg, #d4831f 0%, #e63946 50%, #8b6f47 100%);
-  --gradient-cursed: linear-gradient(135deg, #6b6558 0%, #e63946 50%, #c9a13b 100%);
-  --gradient-breathing: linear-gradient(135deg, #2a9d8f 0%, #4a7c9e 100%);
-  --gradient-dark-overlay: linear-gradient(180deg, rgba(10,10,13,0) 0%, rgba(10,10,13,0.88) 60%, rgba(10,10,13,1) 100%);
+  --gradient-primary: linear-gradient(135deg, #ff4a3d 0%, #ff9f2e 100%);
+  --gradient-hinokami: linear-gradient(135deg, #ff4a3d 0%, #ff9f2e 55%, #f2b33d 100%);
+  --gradient-cursed: linear-gradient(135deg, #5b2be0 0%, #9d5cff 55%, #ff4a3d 130%);
+  --gradient-chakra: linear-gradient(135deg, #1d6fd1 0%, #3fc1ff 60%, #9be7ff 100%);
+  --gradient-energy: linear-gradient(90deg, #ff4a3d, #ff9f2e, #9d5cff, #3fc1ff, #ff4a3d);
+  --gradient-breathing: linear-gradient(135deg, #2fd4b7 0%, #3fc1ff 100%);
+  --gradient-dark-overlay: linear-gradient(180deg, rgba(6,6,11,0) 0%, rgba(6,6,11,0.88) 60%, rgba(6,6,11,1) 100%);
 
-  /* ── Glass (used sparingly — modals/overlays only) ── */
-  --glass-bg: rgba(23, 23, 27, 0.72);
-  --glass-border: rgba(230, 57, 70, 0.18);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  /* ── Glass — cursed violet haze (modals/overlays) ── */
+  --glass-bg: rgba(14, 13, 26, 0.78);
+  --glass-border: rgba(157, 92, 255, 0.22);
+  --glass-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(157, 92, 255, 0.08);
 
-  /* ── Favorite Marker (hanko ink-stamp, not a gold star) ── */
-  --star-active: #e63946;
-  --star-inactive: #4a463c;
+  /* ── Favorite Marker — the ink seal ── */
+  --star-active: #ff4a3d;
+  --star-inactive: #45415c;
 
   /* ── Ink / Print Texture ── */
-  --ink-line: rgba(236, 231, 218, 0.14);
-  --halftone-dot: rgba(236, 231, 218, 0.055);
-  --sticker-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
-  --sticker-shadow-hover: 4px 4px 0 rgba(0, 0, 0, 0.55);
+  --ink-line: rgba(178, 168, 255, 0.13);
+  --halftone-dot: rgba(242, 239, 228, 0.05);
+  --sticker-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
+  --sticker-shadow-hover: 5px 5px 0 rgba(157, 92, 255, 0.25);
 
   /* ── Animations ── */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,16 +88,23 @@
   --color-accent-secondary: var(--accent-secondary);
   --color-accent-chakra: var(--accent-chakra);
   --color-accent-rasengan: var(--accent-rasengan);
+  --color-accent-lightning: var(--accent-lightning);
+  --color-accent-cursed: var(--accent-cursed);
+  --color-accent-hollow: var(--accent-hollow);
   --color-accent-slayer: var(--accent-slayer);
   --color-accent-crimson: var(--accent-crimson);
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-titan: var(--accent-titan);
   --color-accent-sukuna: var(--accent-sukuna);
   --color-star-active: var(--star-active);
   --color-star-inactive: var(--star-inactive);
   --color-glass-bg: var(--glass-bg);
   --color-glass-border: var(--glass-border);
   --font-display: var(--font-rajdhani);
-  --font-body: var(--font-inter);
+  --font-body: var(--font-sora);
   --font-mono: var(--font-mono-vault);
+  --font-mincho: var(--font-mincho);
+  --font-cinzel: var(--font-cinzel);
 }
 
 /* ── Base Resets ── */
@@ -103,16 +120,21 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  font-family: var(--font-body, "Sora", system-ui, sans-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* ── Halftone print texture (the signature manga-page motif) ── */
-.halftone-bg {
-  position: relative;
+::selection {
+  background: rgba(255, 74, 61, 0.35);
+  color: #fff;
 }
+
+/* ══════════════ TEXTURES & PATTERNS ══════════════ */
+
+/* Halftone print texture — the manga-page motif */
+.halftone-bg { position: relative; }
 .halftone-bg::before {
   content: '';
   position: absolute;
@@ -124,157 +146,338 @@ body {
   z-index: 1;
 }
 
-/* ── Custom Scrollbar ── */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* Manga speed lines — AoT action-panel streaks */
+.speedlines {
+  background-image: repeating-linear-gradient(-55deg, transparent 0px, transparent 14px, rgba(242,239,228,0.05) 14px, rgba(242,239,228,0.05) 15px);
+  animation: speedline-drift 1.2s linear infinite;
+}
+.speedlines-slow {
+  background-image: repeating-linear-gradient(-55deg, transparent 0px, transparent 22px, rgba(242,239,228,0.035) 22px, rgba(242,239,228,0.035) 23px);
+  animation: speedline-drift 3.5s linear infinite;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--background-secondary);
+/* Seigaiha — Demon Slayer wave pattern */
+.seigaiha {
+  background-image:
+    radial-gradient(circle at 50% 100%, transparent 58%, rgba(47,212,183,0.14) 59%, rgba(47,212,183,0.14) 62%, transparent 63%),
+    radial-gradient(circle at 50% 100%, transparent 38%, rgba(63,193,255,0.10) 39%, rgba(63,193,255,0.10) 42%, transparent 43%);
+  background-size: 48px 24px, 48px 24px;
+  background-position: 0 0, 24px 0;
 }
 
+/* Ichimatsu — the checkered haori pattern */
+.ichimatsu {
+  background-image: conic-gradient(rgba(255,74,61,0.16) 0deg 90deg, transparent 90deg 180deg, rgba(255,74,61,0.16) 180deg 270deg, transparent 270deg 360deg);
+  background-size: 14px 14px;
+}
+
+/* ── Custom Scrollbar — ember trail ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--background-secondary); }
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-primary);
+  background: linear-gradient(180deg, var(--accent-primary), var(--accent-cursed));
   border-radius: 999px;
 }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-chakra); }
+* { scrollbar-width: thin; scrollbar-color: var(--accent-primary) var(--background-secondary); }
+.scrollbar-thin { scrollbar-width: thin; }
+.scrollbar-thin::-webkit-scrollbar { height: 5px; width: 5px; }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-secondary);
-}
-
-/* Firefox scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent-primary) var(--background-secondary);
-}
-
-/* ── Glassmorphism Utility (modals/overlays only) ── */
+/* ── Glass — cursed haze ── */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(16px) saturate(1.1);
-  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
 }
-
 .glass-subtle {
-  background: rgba(23, 23, 27, 0.45);
+  background: rgba(18, 17, 32, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(236, 231, 218, 0.06);
+  border: 1px solid rgba(178, 168, 255, 0.08);
 }
 
-/* ── Glow Effects (used lightly — mostly replaced by sticker shadows) ── */
-.glow-purple {
-  box-shadow: 0 0 20px rgba(230, 57, 70, 0.25), 0 0 60px rgba(230, 57, 70, 0.08);
-}
+/* ── Glow Effects ── */
+.glow-purple { box-shadow: 0 0 20px rgba(157,92,255,0.35), 0 0 60px rgba(157,92,255,0.12); }
+.glow-orange { box-shadow: 0 0 20px rgba(255,159,46,0.35), 0 0 60px rgba(255,159,46,0.12); }
+.glow-teal { box-shadow: 0 0 20px rgba(47,212,183,0.35), 0 0 60px rgba(47,212,183,0.12); }
+.glow-ember { box-shadow: 0 0 20px rgba(255,74,61,0.4), 0 0 60px rgba(255,74,61,0.15); }
+.glow-chakra { box-shadow: 0 0 20px rgba(63,193,255,0.45), 0 0 70px rgba(63,193,255,0.18); }
 
-.glow-orange {
-  box-shadow: 0 0 20px rgba(212, 131, 31, 0.3), 0 0 60px rgba(212, 131, 31, 0.1);
-}
+/* ══════════════ KEYFRAME LIBRARY — the jutsu scroll ══════════════ */
 
-.glow-teal {
-  box-shadow: 0 0 20px rgba(42, 157, 143, 0.3), 0 0 60px rgba(42, 157, 143, 0.1);
-}
-
-/* ── Keyframe Animations ── */
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
+  50% { opacity: 0.85; transform: scale(1.06); }
 }
-
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-10px); }
 }
-
+/* Rasengan hover — vertical bob with a chakra sway */
+@keyframes rasengan-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(6px, -12px) rotate(2deg); }
+  50% { transform: translate(0, -20px) rotate(0deg); }
+  75% { transform: translate(-6px, -12px) rotate(-2deg); }
+}
 @keyframes energy-flow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
 @keyframes fade-in-up {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes slide-in-right {
   0% { opacity: 0; transform: translateX(100%); }
   100% { opacity: 1; transform: translateX(0); }
 }
-
 @keyframes spin-slow {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-/* Hanko stamp "hit" — favorite toggle slams down like an ink seal */
+@keyframes spin-rev {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+/* Ink seal slam — favorite toggle + hanko stamps */
 @keyframes stamp-hit {
   0% { transform: scale(1.8) rotate(-18deg); opacity: 0; }
   60% { transform: scale(0.9) rotate(4deg); opacity: 1; }
   100% { transform: scale(1) rotate(-6deg); opacity: 1; }
 }
+/* Chidori crackle — violent opacity jitter */
+@keyframes lightning-flicker {
+  0%, 100% { opacity: 0; }
+  8% { opacity: 1; }
+  12% { opacity: 0.2; }
+  16% { opacity: 0.9; }
+  22% { opacity: 0; }
+  38% { opacity: 0.7; }
+  44% { opacity: 0; }
+  60% { opacity: 0; }
+}
+/* Ember rising — hinokami particles climbing the night */
+@keyframes ember-rise {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  8% { opacity: var(--ember-opacity, 0.7); }
+  50% { transform: translate(var(--ember-sway, 20px), -50vh) scale(0.85); }
+  92% { opacity: var(--ember-opacity, 0.7); }
+  100% { transform: translate(calc(var(--ember-sway, 20px) * -0.6), -104vh) scale(0.4); opacity: 0; }
+}
+/* Cursed aura — breathing violet halo */
+@keyframes curse-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); filter: blur(60px); }
+  50% { opacity: 0.85; transform: scale(1.12); filter: blur(74px); }
+}
+@keyframes speedline-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 120px 88px; }
+}
+/* Giant kanji breathing in the void */
+@keyframes kanji-breathe {
+  0%, 100% { opacity: 0.05; transform: scale(1) rotate(-2deg); }
+  50% { opacity: 0.09; transform: scale(1.04) rotate(1deg); }
+}
+/* Brush stroke underline sweeping in */
+@keyframes brush-in {
+  0% { transform: scaleX(0); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+/* Title letters slamming into the panel */
+@keyframes letter-pop {
+  0% { opacity: 0; transform: translateY(26px) rotate(6deg) scale(1.3); }
+  60% { opacity: 1; transform: translateY(-4px) rotate(-2deg) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+}
+/* Chidori spark drift */
+@keyframes spark-fly {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--spark-x, 30px), var(--spark-y, -40px)) scale(0); opacity: 0; }
+}
+/* Death Note gothic flicker — candle-in-the-dark */
+@keyframes gothic-flicker {
+  0%, 100% { opacity: 1; text-shadow: 0 0 18px rgba(215,38,61,0.35); }
+  92% { opacity: 1; }
+  93% { opacity: 0.6; text-shadow: none; }
+  94% { opacity: 1; }
+  96% { opacity: 0.75; }
+  97% { opacity: 1; text-shadow: 0 0 24px rgba(215,38,61,0.5); }
+}
+/* Wave pattern drifting sideways */
+@keyframes wave-drift {
+  0% { background-position-x: 0px, 24px; }
+  100% { background-position-x: 96px, 120px; }
+}
 
-/* ── Animation Utilities ── */
+/* ══════════════ ANIMATION UTILITIES ══════════════ */
+
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(230, 57, 70, 0.08) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,74,61,0.08) 50%, transparent 100%);
   background-size: 200% 100%;
   animation: shimmer 2s ease-in-out infinite;
 }
-
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-rasengan-drift { animation: rasengan-drift 6s ease-in-out infinite; }
 .animate-energy {
   background-size: 200% 200%;
   animation: energy-flow 4s ease infinite;
 }
+.animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; }
+.animate-spin-slow { animation: spin-slow 8s linear infinite; }
+.animate-spin-rev { animation: spin-rev 10s linear infinite; }
+.animate-stamp { animation: stamp-hit 380ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.animate-lightning { animation: lightning-flicker 4.5s linear infinite; }
+.animate-curse { animation: curse-pulse 7s ease-in-out infinite; }
+.animate-kanji { animation: kanji-breathe 9s ease-in-out infinite; }
+.animate-brush { animation: brush-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-letter-pop { animation: letter-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.animate-gothic { animation: gothic-flicker 6s linear infinite; }
+.animate-wave { animation: wave-drift 8s linear infinite; }
+.animate-seal-spin { animation: spin-slow 14s linear infinite; }
+.animate-seal-spin-rev { animation: spin-rev 20s linear infinite; }
 
-.animate-fade-in-up {
-  animation: fade-in-up 0.5s ease-out forwards;
+/* ══════════════ JUTSU COMPONENTS ══════════════ */
+
+/* ── RASENGAN — layered spinning chakra orb ── */
+.rasengan-core {
+  border-radius: 9999px;
+  background: radial-gradient(circle at 38% 35%, #dff7ff 0%, #7dd9ff 22%, #3fc1ff 48%, #1d6fd1 76%, #0a3a8f 100%);
+  box-shadow:
+    0 0 24px rgba(63,193,255,0.75),
+    0 0 70px rgba(63,193,255,0.35),
+    inset 0 0 18px rgba(255,255,255,0.55);
+  animation: pulse-glow 2.2s ease-in-out infinite;
+}
+.rasengan-swirl {
+  border-radius: 9999px;
+  background: repeating-conic-gradient(from 0deg, rgba(255,255,255,0.9) 0deg 14deg, transparent 14deg 42deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 26%, black 46%, black 66%, transparent 78%);
+  mask-image: radial-gradient(circle, transparent 26%, black 46%, black 66%, transparent 78%);
+  animation: spin-slow 1.8s linear infinite;
+}
+.rasengan-swirl-rev {
+  border-radius: 9999px;
+  background: repeating-conic-gradient(from 20deg, rgba(223,247,255,0.7) 0deg 10deg, transparent 10deg 34deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 34%, black 52%, black 62%, transparent 74%);
+  mask-image: radial-gradient(circle, transparent 34%, black 52%, black 62%, transparent 74%);
+  animation: spin-rev 3.1s linear infinite;
+}
+.rasengan-heart {
+  border-radius: 9999px;
+  background: radial-gradient(circle, #ffffff 0%, rgba(223,247,255,0.9) 55%, transparent 75%);
+  filter: blur(1px);
 }
 
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
+/* ── CHIDORI — crackling lightning bolt ── */
+.chidori-bolt {
+  filter: drop-shadow(0 0 6px rgba(155,231,255,0.9)) drop-shadow(0 0 18px rgba(63,193,255,0.5));
+  animation: lightning-flicker 4.5s linear infinite;
 }
 
-.animate-stamp {
-  animation: stamp-hit 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
+/* ── CURSED SEAL — rotating jujutsu ring ── */
+.cursed-ring {
+  border-radius: 9999px;
+  border: 1.5px dashed rgba(157,92,255,0.5);
+  animation: spin-slow 14s linear infinite;
 }
+.cursed-ring-rev {
+  border-radius: 9999px;
+  border: 1px dotted rgba(199,123,255,0.4);
+  animation: spin-rev 22s linear infinite;
+}
+
+/* ── HOLLOW PURPLE — imaginary mass orb ── */
+.hollow-orb {
+  border-radius: 9999px;
+  background: radial-gradient(circle at 40% 35%, #e9d5ff 0%, #c77bff 30%, #7b2cbf 62%, #2a0a4a 100%);
+  box-shadow:
+    0 0 22px rgba(199,123,255,0.7),
+    0 0 60px rgba(157,92,255,0.35),
+    inset 0 0 14px rgba(255,255,255,0.4);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ── OFUDA — paper talisman tag ── */
+.ofuda {
+  position: relative;
+  background: linear-gradient(180deg, rgba(242,239,228,0.10), rgba(242,239,228,0.05));
+  border: 1px solid rgba(255,74,61,0.35);
+  border-top-width: 2px;
+  border-radius: 2px;
+}
+.ofuda::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 2px;
+  background: var(--accent-primary);
+  border-radius: 0 0 2px 2px;
+}
+
+/* ── KANJI VEIL — giant background watermark ── */
+.kanji-veil {
+  font-family: var(--font-mincho), serif;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(178,168,255,0.14);
+  text-shadow: 0 0 60px rgba(157,92,255,0.12);
+  user-select: none;
+}
+
+/* ── BRUSH UNDERLINE — sumi stroke under headings ── */
+.brush-underline {
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-chakra) 55%, transparent 100%);
+  border-radius: 999px;
+  mask-image: linear-gradient(90deg, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, black 70%, transparent 100%);
+}
+
+/* ── ENERGY FRAME — animated gradient border ── */
+.energy-frame {
+  position: relative;
+  background: linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(120deg, #ff4a3d, #ff9f2e, #9d5cff, #3fc1ff, #ff4a3d) border-box;
+  background-size: 100% 100%, 300% 300%;
+  border: 1.5px solid transparent;
+  animation: energy-flow 6s ease infinite;
+}
+
+/* ── TEXT STROKE TITLE — outlined manga type ── */
+.text-stroke-ink {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(242,239,228,0.55);
+}
+
+/* ══════════════ COMPONENT BASES ══════════════ */
 
 /* ── Skeleton Loading ── */
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--surface) 25%,
-    var(--surface-hover) 50%,
-    var(--surface) 75%
-  );
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-hover) 50%, var(--surface) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
   border-radius: 8px;
 }
 
-/* ── Panel (Card) Base — inked panel border + offset sticker shadow ── */
+/* ── Panel (Card) Base — inked panel + cursed hover ── */
 .card {
   background: var(--surface);
   border: 1.5px solid var(--ink-line);
   border-radius: 10px;
   transition: all var(--transition-base);
 }
-
 .card:hover {
   border-color: var(--border-hover);
   background: var(--surface-hover);
@@ -282,44 +485,41 @@ body {
   box-shadow: var(--sticker-shadow-hover);
 }
 
-/* ── Button Base ── */
+/* ── Button Primary — hinokami flame ── */
 .btn-primary {
+  position: relative;
+  overflow: hidden;
   background: var(--gradient-primary);
-  color: #0a0a0d;
+  color: #fff8f2;
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
   font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-base);
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--sticker-shadow);
+  box-shadow: 0 2px 14px rgba(255,74,61,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
 }
-
 .btn-primary::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  transition: background-position 0.6s ease;
 }
-
-.btn-primary:hover::before {
-  opacity: 1;
-}
-
+.btn-primary:hover::before { background-position: -120% 0; }
 .btn-primary:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: var(--sticker-shadow-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 22px rgba(255,74,61,0.5), 0 0 34px rgba(255,159,46,0.2), inset 0 1px 0 rgba(255,255,255,0.25);
 }
-
 .btn-primary:active {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(1px);
+  box-shadow: 0 1px 8px rgba(255,74,61,0.3);
 }
 
+/* ── Button Ghost — sealed paper ── */
 .btn-ghost {
   background: transparent;
   color: var(--foreground-secondary);
@@ -330,14 +530,14 @@ body {
   cursor: pointer;
   transition: all var(--transition-base);
 }
-
 .btn-ghost:hover {
   background: var(--surface-hover);
   color: var(--foreground);
   border-color: var(--border-hover);
+  box-shadow: 0 0 16px rgba(255,74,61,0.12);
 }
 
-/* ── Input Base ── */
+/* ── Input — cursed focus ring ── */
 .input {
   background: var(--background-secondary);
   border: 1.5px solid var(--ink-line);
@@ -349,55 +549,56 @@ body {
   outline: none;
   width: 100%;
 }
-
-.input::placeholder {
-  color: var(--foreground-muted);
-}
-
+.input::placeholder { color: var(--foreground-muted); }
 .input:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+  box-shadow: 0 0 0 3px rgba(255,74,61,0.16), 0 0 18px rgba(255,74,61,0.1);
 }
 
-/* ── Tag Chip — small "caption label" style, amber ink ── */
+/* ── Tag Chip — ofuda talisman label ── */
 .tag-chip {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   padding: 2px 10px;
-  border-radius: 4px;
+  border-radius: 3px;
   font-size: 0.75rem;
   font-weight: 600;
-  font-family: var(--font-mono, monospace);
-  letter-spacing: 0.01em;
-  background: rgba(212, 131, 31, 0.12);
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.02em;
+  background: linear-gradient(180deg, rgba(255,159,46,0.14), rgba(255,159,46,0.06));
   color: var(--accent-chakra);
-  border: 1px solid rgba(212, 131, 31, 0.28);
+  border: 1px solid rgba(255,159,46,0.32);
+  border-top-width: 2px;
   transition: all var(--transition-fast);
 }
-
 .tag-chip:hover {
-  background: rgba(212, 131, 31, 0.2);
-  border-color: rgba(212, 131, 31, 0.4);
+  background: linear-gradient(180deg, rgba(255,159,46,0.24), rgba(255,159,46,0.12));
+  border-color: rgba(255,159,46,0.5);
+  box-shadow: 0 0 12px rgba(255,159,46,0.18);
 }
 
-/* ── Hanko Stamp — the favorite-marker signature element ── */
+/* ── Hanko Stamp — the favorite-marker seal ── */
 .hanko-stamp {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-
 .hanko-stamp[data-active="true"] {
   animation: stamp-hit 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ── Meta text (hostnames, timestamps) — mono caption feel ── */
+/* ── Meta text — mono caption feel ── */
 .meta-mono {
-  font-family: var(--font-mono, monospace);
+  font-family: var(--font-mono), monospace;
   letter-spacing: 0.01em;
 }
+
+/* ── Font utility aliases (non-Tailwind contexts) ── */
+.font-display { font-family: var(--font-rajdhani), sans-serif; }
+.font-mincho { font-family: var(--font-mincho), serif; }
+.font-cinzel { font-family: var(--font-cinzel), serif; }
 
 /* ── Respect reduced motion ── */
 @media (prefers-reduced-motion: reduce) {

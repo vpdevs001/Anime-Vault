@@ -55,13 +55,16 @@ export const FALLBACK_GRADIENTS = [
   "linear-gradient(135deg, #0a0d0c 0%, #101c1a 50%, #0a0a0d 100%)",
 ];
 
-// ── Greeting Messages ──
+// ── Greeting Messages — one per village, rotated on each visit ──
 export const GREETING_MESSAGES = [
   "Welcome back to the Vault",
-  "Your resources await, Shinobi",
+  "Your scrolls await, Shinobi",
+  "Domain Expansion: Infinite Archive",
+  "Set Your Heart Ablaze",
+  "Tatakae. Your links await",
+  "Believe it! The vault is open",
+  "Every link, written in ink",
   "The Vault remembers everything",
-  "Ready to explore your collection?",
-  "All your links, one sacred place",
 ];
 
 // ── Default Values ──

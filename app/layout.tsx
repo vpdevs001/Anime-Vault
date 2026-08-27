@@ -1,23 +1,43 @@
 import type { Metadata } from "next";
-import { Inter, Bebas_Neue, Space_Mono } from "next/font/google";
+import {
+  Bebas_Neue,
+  Space_Mono,
+  Sora,
+  Shippori_Mincho,
+  Cinzel,
+} from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+// Body — clean geometric sans that stays out of the way of the display faces.
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
 });
 
-// Bold condensed impact face — reads like a manga chapter title / cover logotype.
-// Kept under the existing --font-rajdhani variable name so every component that
-// already references it (headers, nav, greetings) picks up the new face for free.
-const rajdhani = Bebas_Neue({
+// Display — bold condensed manga-cover logotype. Kept under the legacy
+// --font-rajdhani variable name so existing components pick it up for free.
+const bebas = Bebas_Neue({
   variable: "--font-rajdhani",
   subsets: ["latin"],
   weight: ["400"],
 });
 
-// Technical mono face for captions — hostnames, timestamps, tag chips — evoking
-// the small printed labels on a manga page rather than a generic UI font.
+// Kanji — Shippori Mincho, a brushy Japanese serif for giant background
+// watermarks, seal stamps and vertical captions.
+const mincho = Shippori_Mincho({
+  variable: "--font-mincho",
+  subsets: ["latin"],
+  weight: ["600", "800"],
+});
+
+// Gothic — Cinzel engraved caps, the Death Note voice: used for ominous
+// labels, the 404 page and "vault records" style headings.
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+});
+
+// Mono — technical captions: hostnames, timestamps, tag chips.
 const spaceMono = Space_Mono({
   variable: "--font-mono-vault",
   subsets: ["latin"],
@@ -25,8 +45,8 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Anime Vault",
-  description: "Your personal resource & link vault",
+  title: "Anime Vault — 術の蔵",
+  description: "Your personal resource & link vault — guarded by jutsu, sealed with ink.",
 };
 
 export default function RootLayout({
@@ -37,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${rajdhani.variable} ${spaceMono.variable} h-full dark`}
+      className={`${sora.variable} ${bebas.variable} ${mincho.variable} ${cinzel.variable} ${spaceMono.variable} h-full dark`}
     >
       <body className="min-h-full flex flex-col antialiased">{children}</body>
     </html>
