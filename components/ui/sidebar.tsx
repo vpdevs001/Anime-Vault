@@ -76,14 +76,18 @@ export function Sidebar({ folders }: SidebarProps) {
           mobileOpen && "max-lg:translate-x-0"
         )}
       >
-        {/* Logo */}
+        {/* Logo — hanko seal mark */}
         <div className="flex items-center gap-3 px-5 h-16 border-b border-border-custom shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center shrink-0">
-            <span className="text-white font-bold text-sm">A</span>
+          <div
+            className="w-8 h-8 rounded-sm border-2 border-accent-primary flex items-center justify-center shrink-0 -rotate-6"
+          >
+            <span className="text-accent-primary font-[family-name:var(--font-rajdhani)] text-sm leading-none">
+              蔵
+            </span>
           </div>
           {!collapsed && (
             <motion.span
-              className="font-bold text-lg font-[family-name:var(--font-rajdhani)] tracking-wide text-foreground"
+              className="font-[family-name:var(--font-rajdhani)] text-xl tracking-wide text-foreground"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
