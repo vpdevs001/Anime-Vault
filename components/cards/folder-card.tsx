@@ -33,34 +33,35 @@ export function FolderCard({
       <Link href={`/folders/${id}`} className="block group">
         <div
           className={cn(
-            "relative overflow-hidden rounded-2xl p-5",
-            "bg-surface border border-border-custom",
+            "relative overflow-hidden rounded-md p-5",
+            "bg-surface border-2 border-[var(--ink-line)]",
             "transition-all duration-300 ease-out",
-            "hover:border-border-hover",
-            "hover:-translate-y-1",
-            "hover:shadow-xl"
+            "group-hover:-translate-x-0.5 group-hover:-translate-y-0.5"
           )}
+          style={{ boxShadow: "none" }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = accentColor;
+            e.currentTarget.style.boxShadow = `3px 3px 0 ${accentColor}55`;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "var(--ink-line)";
+            e.currentTarget.style.boxShadow = "none";
+          }}
         >
-          {/* Accent glow on hover */}
+          {/* Halftone corner texture */}
           <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            className="absolute -top-6 -right-6 w-24 h-24 opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"
             style={{
-              background: `radial-gradient(circle at 30% 30%, ${accentColor}15, transparent 70%)`,
-            }}
-          />
-
-          {/* Top accent line */}
-          <div
-            className="absolute top-0 left-0 right-0 h-[2px] opacity-60 group-hover:opacity-100 transition-opacity"
-            style={{
-              background: `linear-gradient(90deg, ${accentColor}, transparent)`,
+              backgroundImage: `radial-gradient(${accentColor}80 1px, transparent 1px)`,
+              backgroundSize: "5px 5px",
+              maskImage: "radial-gradient(circle, black 30%, transparent 70%)",
             }}
           />
 
           {/* Icon */}
           <div
-            className="relative w-11 h-11 rounded-xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
-            style={{ backgroundColor: `${accentColor}18` }}
+            className="relative w-11 h-11 rounded-sm flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110 border"
+            style={{ backgroundColor: `${accentColor}14`, borderColor: `${accentColor}40` }}
           >
             <DynamicIcon
               name={icon}
@@ -70,7 +71,7 @@ export function FolderCard({
           </div>
 
           {/* Name */}
-          <h3 className="relative text-base font-semibold text-foreground truncate mb-1 font-[family-name:var(--font-rajdhani)] tracking-wide">
+          <h3 className="relative text-lg font-[family-name:var(--font-rajdhani)] tracking-wide text-foreground truncate mb-1">
             {name}
           </h3>
 
@@ -82,7 +83,7 @@ export function FolderCard({
           )}
 
           {/* Link count */}
-          <p className="relative text-xs text-foreground-muted">
+          <p className="relative text-xs text-foreground-muted meta-mono">
             {linkCount} {linkCount === 1 ? "link" : "links"}
           </p>
         </div>

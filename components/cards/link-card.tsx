@@ -87,11 +87,12 @@ export function LinkCard({
     >
       <div
         className={cn(
-          "relative overflow-hidden rounded-xl",
-          "bg-surface border border-border-custom",
+          "relative overflow-hidden rounded-md",
+          "bg-surface border-2 border-[var(--ink-line)]",
           "transition-all duration-250",
-          "hover:border-border-hover hover:bg-surface-hover",
-          "hover:-translate-y-0.5 hover:shadow-lg"
+          "hover:border-[var(--border-hover)] hover:bg-surface-hover",
+          "hover:-translate-x-0.5 hover:-translate-y-0.5",
+          "hover:shadow-[var(--sticker-shadow)]"
         )}
       >
         {/* Preview Image */}
@@ -141,26 +142,32 @@ export function LinkCard({
                 <h4 className="text-sm font-medium text-foreground truncate hover:text-accent-primary transition-colors">
                   {title || url}
                 </h4>
-                <p className="text-xs text-foreground-muted mt-0.5 truncate">
+                <p className="text-xs text-foreground-muted mt-0.5 truncate meta-mono">
                   {hostname}
                 </p>
               </a>
             </div>
 
-            {/* Star */}
+            {/* Favorite — hanko ink-stamp */}
             <button
               onClick={handleFavorite}
               className="shrink-0 p-1 transition-all duration-200 hover:scale-110"
             >
-              <Star
-                size={16}
-                className={cn(
-                  "transition-colors",
-                  optimisticFav
-                    ? "fill-star-active text-star-active"
-                    : "text-star-inactive hover:text-star-active"
-                )}
-              />
+              <span
+                className="hanko-stamp"
+                data-active={optimisticFav}
+                key={optimisticFav ? "on" : "off"}
+              >
+                <Star
+                  size={16}
+                  className={cn(
+                    "transition-colors",
+                    optimisticFav
+                      ? "fill-star-active text-star-active"
+                      : "text-star-inactive hover:text-star-active"
+                  )}
+                />
+              </span>
             </button>
           </div>
 
