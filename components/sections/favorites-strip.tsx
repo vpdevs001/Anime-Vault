@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
 import { Heart } from "lucide-react";
 import { LinkCard } from "../cards/link-card";
+import { SectionHeader } from "@/components/ui/section-header";
 
 interface FavoritesStripProps {
   favorites: Array<{
@@ -22,19 +22,16 @@ export function FavoritesStrip({ favorites }: FavoritesStripProps) {
   if (favorites.length === 0) return null;
 
   return (
-    <section className="mb-8">
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="flex items-center gap-2 mb-4"
-      >
-        <Heart size={18} className="text-accent-crimson" />
-        <h2 className="text-lg font-bold font-[family-name:var(--font-rajdhani)] tracking-wide text-foreground">
-          Favorites
-        </h2>
-      </motion.div>
+    <section className="mb-10">
+      <SectionHeader
+        icon={Heart}
+        title="Sealed Favorites"
+        kanji="印"
+        count={favorites.length}
+        accent="#d7263d"
+      />
 
-      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin">
+      <div className="flex gap-4 overflow-x-auto pb-3 pt-1 scrollbar-thin">
         {favorites.slice(0, 12).map((link, i) => (
           <div key={link.id} className="min-w-[280px] max-w-[300px] shrink-0">
             <LinkCard

@@ -64,7 +64,6 @@ export function LinkCard({
   }
 
   function handleOpen() {
-    // Track the open, then let the link open in a new tab
     startTransition(() => {
       trackLinkOpen(id);
     });
@@ -80,21 +79,32 @@ export function LinkCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.03, duration: 0.35 }}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ delay: index * 0.04, duration: 0.4, ease: "easeOut" }}
       className="group"
     >
       <div
         className={cn(
-          "relative overflow-hidden rounded-md",
-          "bg-surface border-2 border-[var(--ink-line)]",
-          "transition-all duration-250",
+          "relative overflow-hidden rounded-lg",
+          "bg-surface border-[1.5px] border-[var(--ink-line)]",
+          "transition-all duration-300",
           "hover:border-[var(--border-hover)] hover:bg-surface-hover",
-          "hover:-translate-x-0.5 hover:-translate-y-0.5",
-          "hover:shadow-[var(--sticker-shadow)]"
+          "hover:-translate-y-1 hover:shadow-[5px_5px_0_rgba(157,92,255,0.22)]"
         )}
       >
+        {/* Speed-line sweep — flashes across on hover (AoT) */}
+        <div className="absolute inset-0 speedlines opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-[1]" />
+
+        {/* Corner kanji — ghosts in on hover */}
+        <span
+          className="absolute -bottom-3 -right-2 font-[family-name:var(--font-mincho)] font-bold text-7xl leading-none text-foreground/[0.05] group-hover:text-foreground/[0.09] transition-all duration-500 pointer-events-none select-none z-[1]"
+          aria-hidden
+        >
+          巻
+        </span>
+
         {/* Preview Image */}
         {previewImageUrl && (
           <div className="relative h-32 overflow-hidden">
@@ -102,16 +112,15 @@ export function LinkCard({
             <img
               src={previewImageUrl}
               alt=""
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-[0.5deg]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
           </div>
         )}
 
-        <div className="p-4">
-          {/* Top row: favicon + title + star */}
+        <div className="p-4 relative z-[2]">
+          {/* Top row: favicon + title + seal */}
           <div className="flex items-start gap-3">
-            {/* Favicon */}
             <div className="shrink-0 mt-0.5">
               {faviconUrl ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
@@ -124,50 +133,43 @@ export function LinkCard({
                   }}
                 />
               ) : (
-                <div className="w-6 h-6 rounded bg-accent-primary/15 flex items-center justify-center">
-                  <ExternalLink size={12} className="text-accent-primary" />
+                <div className="w-6 h-6 rounded bg-surface-active border border-[var(--ink-line)] flex items-center justify-center">
+                  <ExternalLink size={12} className="text-foreground-muted" />
                 </div>
               )}
             </div>
 
-            {/* Content */}
             <div className="flex-1 min-w-0">
               <a
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleOpen}
-                className="block"
+                className="block text-sm font-semibold text-foreground truncate hover:text-accent-chakra transition-colors"
               >
-                <h4 className="text-sm font-medium text-foreground truncate hover:text-accent-primary transition-colors">
-                  {title || url}
-                </h4>
-                <p className="text-xs text-foreground-muted mt-0.5 truncate meta-mono">
-                  {hostname}
-                </p>
+                {title || hostname}
               </a>
+              <span className="text-[11px] text-foreground-muted meta-mono truncate block">
+                {hostname}
+              </span>
             </div>
 
-            {/* Favorite — hanko ink-stamp */}
+            {/* Favorite — the ink seal. Click slams the hanko down. */}
             <button
               onClick={handleFavorite}
-              className="shrink-0 p-1 transition-all duration-200 hover:scale-110"
+              className="hanko-stamp shrink-0 p-1 -m-1 rounded transition-transform hover:scale-125 active:scale-90"
+              data-active={optimisticFav}
+              title={optimisticFav ? "Unseal" : "Seal as favorite"}
             >
-              <span
-                className="hanko-stamp"
-                data-active={optimisticFav}
-                key={optimisticFav ? "on" : "off"}
-              >
-                <Star
-                  size={16}
-                  className={cn(
-                    "transition-colors",
-                    optimisticFav
-                      ? "fill-star-active text-star-active"
-                      : "text-star-inactive hover:text-star-active"
-                  )}
-                />
-              </span>
+              <Star
+                size={17}
+                className={cn(
+                  "transition-all duration-300",
+                  optimisticFav
+                    ? "fill-star-active text-star-active drop-shadow-[0_0_8px_rgba(255,74,61,0.8)] -rotate-6"
+                    : "text-star-inactive hover:text-foreground-secondary"
+                )}
+              />
             </button>
           </div>
 
@@ -178,7 +180,7 @@ export function LinkCard({
             </p>
           )}
 
-          {/* Tags + Folder */}
+          {/* Tags — ofuda talismans + folder scroll */}
           <div className="flex items-center gap-2 mt-3 flex-wrap">
             {linkTags?.map((lt) => (
               <span key={lt.tag.id} className="tag-chip text-[11px]">
@@ -186,15 +188,15 @@ export function LinkCard({
               </span>
             ))}
             {showFolder && folderName && (
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-surface-active text-foreground-muted">
-                📁 {folderName}
+              <span className="text-[11px] px-2 py-0.5 rounded-sm bg-accent-cursed/10 text-accent-hollow border border-accent-cursed/25 meta-mono">
+                巻 {folderName}
               </span>
             )}
           </div>
         </div>
 
         {/* Actions Menu */}
-        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="absolute top-2 right-2 z-[3] opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="relative">
             <button
               onClick={(e) => {

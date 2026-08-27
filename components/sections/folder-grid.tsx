@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Layers } from "lucide-react";
 import { FolderCard } from "../cards/folder-card";
+import { SectionHeader } from "@/components/ui/section-header";
 
 interface FolderGridProps {
   folders: Array<{
@@ -18,29 +19,27 @@ interface FolderGridProps {
 export function FolderGrid({ folders }: FolderGridProps) {
   return (
     <section>
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="flex items-center gap-2 mb-4"
-      >
-        <Layers size={18} className="text-accent-slayer" />
-        <h2 className="text-lg font-bold font-[family-name:var(--font-rajdhani)] tracking-wide text-foreground">
-          All Folders
-        </h2>
-        <span className="text-sm text-foreground-muted ml-1">
-          ({folders.length})
-        </span>
-      </motion.div>
+      <SectionHeader
+        icon={Layers}
+        title="Village Archives"
+        kanji="巻"
+        count={folders.length}
+        accent="#2fd4b7"
+      />
 
       {folders.length === 0 ? (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-16 rounded-2xl border border-dashed border-border-custom"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative text-center py-16 rounded-2xl border border-dashed border-[rgba(178,168,255,0.2)] overflow-hidden"
         >
-          <Layers size={40} className="mx-auto text-foreground-muted mb-3" />
-          <p className="text-foreground-secondary text-sm">
-            No folders yet. Create your first folder to get started!
+          <div className="absolute inset-0 seigaiha opacity-40 pointer-events-none" />
+          <Layers size={40} className="mx-auto text-foreground-muted mb-3 relative" />
+          <p className="text-foreground-secondary text-sm relative">
+            No scrolls sealed yet. Forge your first folder to begin the archive!
+          </p>
+          <p className="font-[family-name:var(--font-mincho)] text-foreground-muted/60 text-xs mt-2 relative">
+            巻物はまだない
           </p>
         </motion.div>
       ) : (
