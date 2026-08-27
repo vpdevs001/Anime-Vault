@@ -4,6 +4,7 @@ import {
   text,
   boolean,
   timestamp,
+  primaryKey,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -64,14 +65,18 @@ export const tagsRelations = relations(tags, ({ many }) => ({
 }));
 
 // ── Link-Tags Join Table ──
-export const linkTags = pgTable("link_tags", {
-  linkId: uuid("link_id")
-    .notNull()
-    .references(() => links.id, { onDelete: "cascade" }),
-  tagId: uuid("tag_id")
-    .notNull()
-    .references(() => tags.id, { onDelete: "cascade" }),
-});
+export const linkTags = pgTable(
+  "link_tags",
+  {
+    linkId: uuid("link_id")
+      .notNull()
+      .references(() => links.id, { onDelete: "cascade" }),
+    tagId: uuid("tag_id")
+      .notNull()
+      .references(() => tags.id, { onDelete: "cascade" }),
+  },
+  (table) => [primaryKey({ columns: [table.linkId, table.tagId] })]
+);
 
 export const linkTagsRelations = relations(linkTags, ({ one }) => ({
   link: one(links, {
