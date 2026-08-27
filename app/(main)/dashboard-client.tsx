@@ -84,6 +84,7 @@ export function DashboardClient({
         isOpen={showFolderModal}
         onClose={() => setShowFolderModal(false)}
         title="Create Folder"
+        kanji="巻"
       >
         <FolderForm onSuccess={() => setShowFolderModal(false)} />
       </Modal>
@@ -93,6 +94,7 @@ export function DashboardClient({
         isOpen={showLinkModal}
         onClose={() => setShowLinkModal(false)}
         title="Add Link"
+        kanji="鎖"
       >
         <LinkForm
           folders={folders.map((f) => ({ id: f.id, name: f.name }))}
