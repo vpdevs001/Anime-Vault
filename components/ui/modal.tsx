@@ -28,10 +28,12 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
           />
 
           {/* Modal Panel */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+          >
             <motion.div
               className={cn(
-                "relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl glass",
+                "relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl glass pointer-events-auto",
                 "border border-glass-border shadow-2xl",
                 className
               )}

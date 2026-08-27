@@ -16,7 +16,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
         const isSelected = value === color.value;
         return (
           <button
-            key={color.value}
+            key={color.name}
             type="button"
             onClick={() => onChange(color.value)}
             className={cn(

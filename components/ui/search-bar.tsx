@@ -23,6 +23,12 @@ export function SearchBar({ className }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+    setQuery("");
+    setResults(null);
+  }, []);
+
   // Cmd+K to open
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -31,14 +37,12 @@ export function SearchBar({ className }: SearchBarProps) {
         setIsOpen(true);
       }
       if (e.key === "Escape") {
-        setIsOpen(false);
-        setQuery("");
-        setResults(null);
+        handleClose();
       }
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [handleClose]);
 
   useEffect(() => {
     if (isOpen) {
@@ -104,19 +108,18 @@ export function SearchBar({ className }: SearchBarProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => {
-                setIsOpen(false);
-                setQuery("");
-                setResults(null);
-              }}
+              onClick={handleClose}
             />
-            <div className="fixed inset-0 z-[60] flex items-start justify-center pt-[15vh] px-4">
+            <div
+              className="fixed inset-0 z-[60] flex items-start justify-center pt-[15vh] px-4 pointer-events-none"
+            >
               <motion.div
-                className="w-full max-w-xl glass rounded-2xl overflow-hidden shadow-2xl"
+                className="w-full max-w-xl glass rounded-2xl overflow-hidden shadow-2xl pointer-events-auto"
                 initial={{ opacity: 0, scale: 0.95, y: -20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                 transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
+                onClick={(e) => e.stopPropagation()}
               >
                 {/* Input */}
                 <div className="flex items-center gap-3 px-5 py-4 border-b border-border-custom">
@@ -131,15 +134,26 @@ export function SearchBar({ className }: SearchBarProps) {
                   />
                   {query && (
                     <button
+                      type="button"
                       onClick={() => {
                         setQuery("");
                         setResults(null);
+                        inputRef.current?.focus();
                       }}
-                      className="text-foreground-muted hover:text-foreground transition-colors"
+                      className="text-foreground-muted hover:text-foreground transition-colors p-1"
+                      title="Clear search query"
                     >
                       <X size={16} />
                     </button>
                   )}
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className="text-foreground-muted hover:text-foreground transition-colors text-xs px-1.5 py-0.5 rounded bg-background-secondary border border-border-custom hover:bg-surface-hover"
+                    title="Close (Esc)"
+                  >
+                    ESC
+                  </button>
                 </div>
 
                 {/* Results */}
@@ -163,11 +177,7 @@ export function SearchBar({ className }: SearchBarProps) {
                               key={folder.id}
                               href={`/folders/${folder.id}`}
                               className="flex items-center gap-3 px-5 py-2.5 hover:bg-surface-hover transition-colors"
-                              onClick={() => {
-                                setIsOpen(false);
-                                setQuery("");
-                                setResults(null);
-                              }}
+                              onClick={handleClose}
                             >
                               <div
                                 className="w-8 h-8 rounded-lg flex items-center justify-center"
@@ -204,11 +214,7 @@ export function SearchBar({ className }: SearchBarProps) {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center gap-3 px-5 py-2.5 hover:bg-surface-hover transition-colors"
-                              onClick={() => {
-                                setIsOpen(false);
-                                setQuery("");
-                                setResults(null);
-                              }}
+                              onClick={handleClose}
                             >
                               {link.faviconUrl ? (
                                 /* eslint-disable-next-line @next/next/no-img-element */
