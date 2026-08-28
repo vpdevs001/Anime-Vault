@@ -122,11 +122,42 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  cursor: url('/cursors/kunai.svg') 6 6, auto;
 }
 
 ::selection {
   background: rgba(255, 74, 61, 0.35);
   color: #fff;
+}
+
+/* ── Anime cursor states ──
+   A CSS `cursor: url()` swap, not a JS mouse-tracked element — it's native,
+   zero-JS, and doesn't add a mousemove listener re-rendering on every pixel
+   (that would fight the performance work elsewhere in this pass). The kunai
+   points on idle ground; interactive elements swap to a small hanko seal so
+   "this is clickable" reads instantly. */
+a,
+button,
+[role="button"],
+input[type="checkbox"],
+input[type="radio"],
+select,
+.btn-primary,
+.btn-ghost,
+.card,
+.tag-chip,
+label[for] {
+  cursor: url('/cursors/seal.svg') 14 14, pointer;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+textarea {
+  cursor: text;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
 }
 
 /* ══════════════ TEXTURES & PATTERNS ══════════════ */
@@ -228,6 +259,23 @@ body {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+/* Rasengan instability — the sphere never sits perfectly still */
+@keyframes rasengan-wobble {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.035, 0.97); }
+}
+/* Titan steam — a thin wisp rising and dissolving */
+@keyframes titan-steam-rise {
+  0% { transform: translateY(0) scaleX(1); opacity: 0; }
+  15% { opacity: 0.5; }
+  100% { transform: translateY(-46px) scaleX(1.6); opacity: 0; }
+}
+/* Shinigami ash — a mote of ash drifting and fading, Death Note mood */
+@keyframes shinigami-ash-drift {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  20% { opacity: 0.7; }
+  100% { transform: translateY(-24px) translateX(6px); opacity: 0; }
 }
 @keyframes fade-in-up {
   0% { opacity: 0; transform: translateY(20px); }
@@ -341,6 +389,12 @@ body {
 /* ══════════════ JUTSU COMPONENTS ══════════════ */
 
 /* ── RASENGAN — layered spinning chakra orb ── */
+.rasengan-pressure-ring {
+  border-radius: 9999px;
+  border: 1.5px solid rgba(223,247,255,0.35);
+  box-shadow: 0 0 14px rgba(63,193,255,0.35), inset 0 0 14px rgba(63,193,255,0.25);
+  animation: spin-slow 5s linear infinite, pulse-glow 2.4s ease-in-out infinite;
+}
 .rasengan-core {
   border-radius: 9999px;
   background: radial-gradient(circle at 38% 35%, #dff7ff 0%, #7dd9ff 22%, #3fc1ff 48%, #1d6fd1 76%, #0a3a8f 100%);
@@ -348,7 +402,7 @@ body {
     0 0 24px rgba(63,193,255,0.75),
     0 0 70px rgba(63,193,255,0.35),
     inset 0 0 18px rgba(255,255,255,0.55);
-  animation: pulse-glow 2.2s ease-in-out infinite;
+  animation: pulse-glow 2.2s ease-in-out infinite, rasengan-wobble 1.4s ease-in-out infinite;
 }
 .rasengan-swirl {
   border-radius: 9999px;
@@ -356,6 +410,13 @@ body {
   -webkit-mask-image: radial-gradient(circle, transparent 26%, black 46%, black 66%, transparent 78%);
   mask-image: radial-gradient(circle, transparent 26%, black 46%, black 66%, transparent 78%);
   animation: spin-slow 1.8s linear infinite;
+}
+.rasengan-swirl-mid {
+  border-radius: 9999px;
+  background: repeating-conic-gradient(from 10deg, rgba(125,217,255,0.55) 0deg 8deg, transparent 8deg 26deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 30%, black 50%, black 70%, transparent 82%);
+  mask-image: radial-gradient(circle, transparent 30%, black 50%, black 70%, transparent 82%);
+  animation: spin-rev 2.6s linear infinite;
 }
 .rasengan-swirl-rev {
   border-radius: 9999px;
@@ -368,6 +429,53 @@ body {
   border-radius: 9999px;
   background: radial-gradient(circle, #ffffff 0%, rgba(223,247,255,0.9) 55%, transparent 75%);
   filter: blur(1px);
+}
+/* Orbiting chakra sparks — tiny bright motes circling the sphere */
+.rasengan-orbit {
+  animation: spin-slow 3.2s linear infinite;
+}
+.rasengan-orbit-rev {
+  animation: spin-rev 4.4s linear infinite;
+}
+.rasengan-spark {
+  position: absolute;
+  top: 4%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: #eafcff;
+  box-shadow: 0 0 8px 2px rgba(63,193,255,0.9);
+  animation: pulse-glow 1.1s ease-in-out infinite;
+}
+.rasengan-spark-sm {
+  width: 3px;
+  height: 3px;
+  top: 10%;
+}
+
+/* ── TITAN STEAM — rising wisp ── */
+.titan-steam-wisp {
+  position: absolute;
+  bottom: 30%;
+  width: 3px;
+  height: 14px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(223,216,196,0.55), transparent);
+  filter: blur(1px);
+  animation: titan-steam-rise 5s ease-out infinite;
+}
+
+/* ── SHINIGAMI ASH — drifting ember-ash mote ── */
+.shinigami-ash {
+  position: absolute;
+  bottom: 40%;
+  width: 2px;
+  height: 2px;
+  border-radius: 9999px;
+  background: #d7263d;
+  box-shadow: 0 0 4px 1px rgba(215,38,61,0.7);
+  animation: shinigami-ash-drift 4s ease-in infinite;
 }
 
 /* ── SHARINGAN — slow activation blink on the eye SVG ── */
