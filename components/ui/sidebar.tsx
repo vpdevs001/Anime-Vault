@@ -258,6 +258,18 @@ export function Sidebar({ folders }: SidebarProps) {
           )}
         </nav>
 
+        {/* Six Seals strip — a quiet nod to every series on every page,
+            not just whichever one got the hero banner that visit */}
+        {!collapsed && (
+          <div className="flex items-center justify-center gap-3 px-3 mb-1.5" aria-hidden>
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-chakra/80" title="Naruto" />
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#5a8c69cc" }} title="Attack on Titan" />
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-crimson/80" title="Death Note" />
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#2a9d8fcc" }} title="Demon Slayer" />
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-cursed/80" title="Jujutsu Kaisen" />
+          </div>
+        )}
+
         {/* Seigaiha wave strip — Demon Slayer footer */}
         {!collapsed && (
           <div

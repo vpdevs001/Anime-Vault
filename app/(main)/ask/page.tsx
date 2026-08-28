@@ -1,6 +1,7 @@
 import { getAllLinksForAI } from "@/lib/db/queries";
 import { ChatPanel } from "@/components/ask-vault/chat-panel";
 import { PageHeader } from "@/components/ui/page-header";
+import { ShinigamiEye } from "@/components/fx/shinigami-eye";
 import { Bot } from "lucide-react";
 
 export default async function AskPage() {
@@ -34,7 +35,9 @@ export default async function AskPage() {
         kanji="問"
         accent="#9d5cff"
         subtitle="Speak to the vault spirit — natural-language search over your sealed scrolls"
-      />
+      >
+        <ShinigamiEye size={52} />
+      </PageHeader>
 
       <div className="flex-1 glass rounded-2xl border border-glass-border overflow-hidden flex flex-col shadow-2xl relative">
         {/* Cursed energy edge */}

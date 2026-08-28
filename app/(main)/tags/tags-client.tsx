@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { deleteTag } from "@/lib/actions/tags";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "@/components/ui/page-header";
+import { TitanSteam } from "@/components/fx/titan-steam";
 
 interface TagsClientProps {
   tags: Array<{
@@ -36,7 +37,9 @@ export function TagsClient({ tags }: TagsClientProps) {
         kanji="札"
         accent="#ff9f2e"
         subtitle={`${tags.length} ${tags.length === 1 ? "talisman" : "talismans"} in circulation`}
-      />
+      >
+        <TitanSteam size={52} />
+      </PageHeader>
 
       {tags.length === 0 ? (
         <motion.div
