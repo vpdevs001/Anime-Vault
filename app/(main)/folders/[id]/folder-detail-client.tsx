@@ -63,6 +63,21 @@ export function FolderDetailClient({
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const hasMore = page < totalPages;
 
+  // Re-sync whenever the server sends fresh data (e.g. after router.refresh()
+  // following a create/edit/delete). Without this, `links` stays frozen at
+  // whatever it was on first mount — useState's initial value is only ever
+  // read once, so a newly added link would never appear without a full
+  // browser reload even though the server-side data was already current.
+  // Done during render (React's documented pattern for "reset state when a
+  // prop changes") rather than in a useEffect, which would cost an extra
+  // render pass on every refresh.
+  const [prevInitialLinks, setPrevInitialLinks] = useState(initialLinks);
+  if (initialLinks !== prevInitialLinks) {
+    setPrevInitialLinks(initialLinks);
+    setLinks(initialLinks);
+    setPage(1);
+  }
+
   function handleLoadMore() {
     setIsLoadingMore(true);
     startTransition(async () => {

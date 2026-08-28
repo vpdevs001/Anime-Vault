@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { HeroBanner } from "@/components/sections/hero-banner";
 import { FavoritesStrip } from "@/components/sections/favorites-strip";
 import { RecentsStrip } from "@/components/sections/recents-strip";
@@ -51,6 +52,7 @@ export function DashboardClient({
   recents,
   allTags,
 }: DashboardClientProps) {
+  const router = useRouter();
   const [showFolderModal, setShowFolderModal] = useState(false);
   const [showLinkModal, setShowLinkModal] = useState(false);
 
@@ -86,7 +88,12 @@ export function DashboardClient({
         title="Create Folder"
         kanji="巻"
       >
-        <FolderForm onSuccess={() => setShowFolderModal(false)} />
+        <FolderForm
+          onSuccess={() => {
+            setShowFolderModal(false);
+            router.refresh();
+          }}
+        />
       </Modal>
 
       {/* Create Link Modal */}
@@ -99,7 +106,10 @@ export function DashboardClient({
         <LinkForm
           folders={folders.map((f) => ({ id: f.id, name: f.name }))}
           existingTags={allTags}
-          onSuccess={() => setShowLinkModal(false)}
+          onSuccess={() => {
+            setShowLinkModal(false);
+            router.refresh();
+          }}
         />
       </Modal>
     </>

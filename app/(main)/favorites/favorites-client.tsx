@@ -29,6 +29,17 @@ export function FavoritesClient({ favorites: initialFavorites, total = 0, totalP
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const hasMore = page < totalPages;
 
+  // Same reasoning as the folder detail view: re-sync when the server sends
+  // fresh data so favorites toggled/added elsewhere don't require a hard
+  // reload. Derived during render (React's documented pattern) rather than
+  // via useEffect, which would cost an extra render pass on every refresh.
+  const [prevInitialFavorites, setPrevInitialFavorites] = useState(initialFavorites);
+  if (initialFavorites !== prevInitialFavorites) {
+    setPrevInitialFavorites(initialFavorites);
+    setFavorites(initialFavorites);
+    setPage(1);
+  }
+
   async function handleLoadMore() {
     setIsLoadingMore(true);
     const next = await getFavoritesPage(page + 1);
