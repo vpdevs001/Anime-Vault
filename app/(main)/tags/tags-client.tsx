@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { deleteTag } from "@/lib/actions/tags";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "@/components/ui/page-header";
-import { TitanSteam } from "@/components/fx/titan-steam";
+import { NichirinMist } from "@/components/fx/nichirin-mist";
 
 interface TagsClientProps {
   tags: Array<{
@@ -38,7 +38,7 @@ export function TagsClient({ tags }: TagsClientProps) {
         accent="#ff9f2e"
         subtitle={`${tags.length} ${tags.length === 1 ? "talisman" : "talismans"} in circulation`}
       >
-        <TitanSteam size={52} />
+        <NichirinMist size={52} />
       </PageHeader>
 
       {tags.length === 0 ? (
