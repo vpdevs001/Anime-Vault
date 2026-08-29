@@ -76,11 +76,11 @@ export function HeroBanner() {
       </div>
 
       {/* ── Layer 4: eyes, watching — one Sharingan (Naruto), one Six Eyes (JJK) ── */}
-      <div className="absolute top-3 left-2 sm:top-5 sm:left-6 pointer-events-none">
-        <Sharingan size={78} delay={0.6} />
+      <div className="absolute top-2 left-2 sm:top-4 sm:left-5 pointer-events-none">
+        <Sharingan size={105} delay={0.6} />
       </div>
-      <div className="absolute top-16 left-20 sm:top-24 sm:left-32 pointer-events-none opacity-80">
-        <SixEyes size={54} delay={2.4} />
+      <div className="absolute top-16 left-24 sm:top-20 sm:left-36 pointer-events-none opacity-85">
+        <SixEyes size={80} delay={2.4} />
       </div>
 
       {/* ── Layer 4b: Titan wings + steam — top-right, Attack on Titan flagship ── */}
@@ -90,29 +90,27 @@ export function HeroBanner() {
         animate={{ opacity: 0.95, y: 0 }}
         transition={{ duration: 0.8, delay: 0.9 }}
       >
-        <TitanSteam size={64} className="sm:hidden" />
-        <TitanSteam size={84} className="hidden sm:block" />
+        <TitanSteam size={80} />
       </motion.div>
 
-      {/* ── Layer 5: the Rasengan — floating right of center ── */}
+      {/* ── Layer 5: the Rasengan — single large sphere with massive radiating aura ── */}
       <motion.div
-        className="absolute right-8 sm:right-24 top-1/2 -translate-y-1/2 z-10"
+        className="absolute right-6 sm:right-20 top-1/2 -translate-y-1/2 z-10 pointer-events-none"
         initial={{ opacity: 0, scale: 0.3 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.9, delay: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
       >
-        <Rasengan size={96} className="sm:hidden" />
-        <Rasengan size={132} className="hidden sm:block" />
+        <Rasengan size={185} />
       </motion.div>
 
       {/* ── Layer 6: hollow purple, lurking bottom-left ── */}
       <motion.div
-        className="absolute left-6 sm:left-10 bottom-8 z-10 hidden sm:block"
+        className="absolute left-6 sm:left-10 bottom-6 z-10 hidden sm:block pointer-events-none"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 0.9, y: 0 }}
+        animate={{ opacity: 0.95, y: 0 }}
         transition={{ duration: 0.8, delay: 1.1 }}
       >
-        <CursedOrb size={44} />
+        <CursedOrb size={85} />
       </motion.div>
 
       {/* ── Layer 7: rising sparks inside the panel — fire palette only ── */}
