@@ -11,20 +11,24 @@ interface RasenganProps {
 }
 
 /**
- * RASENGAN — a spinning sphere of pure chakra, rendered from the real art.
- * The image spins at a constant rate while a separate bluish aura blooms and
- * fades intermittently behind it. Uses the full-quality PNG from public/.
+ * RASENGAN — a giant spinning sphere of concentrated chakra, rendered from
+ * the real art. Surrounded by a massive, multi-tiered radiating bluish aura
+ * that pulses, expands, and blooms with immense chakra pressure.
  */
-export function Rasengan({ size = 120, className, drift = true }: RasenganProps) {
+export function Rasengan({ size = 175, className, drift = true }: RasenganProps) {
   return (
     <div
       className={cn("fx", drift && "animate-rasengan-drift", className)}
       style={{ width: size, height: size }}
       aria-hidden
     >
-      {/* Bluish shiny aura — fades in/out intermittently, independent of spin */}
+      {/* Outer mega-aura — massive radiating chakra haze */}
+      <div className="fx-aura fx-rasengan-aura-outer" />
+      {/* Bluish shiny aura — intermittent blooming chakra energy */}
       <div className="fx-aura fx-rasengan-aura" />
-      {/* The chakra sphere itself — constant rotation + a shiny chakra glow */}
+      {/* Inner high-intensity chakra flare */}
+      <div className="fx-aura fx-rasengan-aura-inner" />
+      {/* The chakra sphere itself — rapid constant rotation + intense blue glow */}
       <div className="fx-rasengan-img fx-rasengan-glow">
         <Image
           src="/rasengan.png"

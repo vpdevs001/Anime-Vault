@@ -16,7 +16,7 @@ interface SharinganProps {
  * speed: a lazy crawl that surges into a fast whirl and snaps back, like the
  * eye waking up. Uses the full-quality PNG from public/.
  */
-export function Sharingan({ size = 120, className, spin = true, delay = 0 }: SharinganProps) {
+export function Sharingan({ size = 135, className, spin = true, delay = 0 }: SharinganProps) {
   return (
     <div
       className={cn("fx", className)}

@@ -123,7 +123,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   /* Kunai tip points up-left → hotspot lands on the blade point (2,2). */
-  cursor: url('/cursors/kunai.png') 2 2, auto !important;
+  cursor: url('/cursors/kunai.jpg') 2 2, url('/cursors/kunai.png') 2 2, url('/kunai.jpg') 2 2, auto !important;
 }
 
 ::selection {
@@ -848,54 +848,65 @@ button:disabled,
 }
 
 /* ── Rasengan ── */
-.fx-rasengan-img { animation: fx-spin-constant 2.8s linear infinite; }
+.fx-rasengan-img { animation: fx-spin-constant 2.5s linear infinite; }
+.fx-rasengan-aura-outer {
+  inset: -60%;
+  background: radial-gradient(circle, rgba(63,193,255,0.4) 0%, rgba(29,111,209,0.2) 40%, rgba(63,193,255,0.06) 65%, transparent 80%);
+  animation: rasengan-aura-fade 5s ease-in-out infinite;
+  filter: blur(10px);
+}
 .fx-rasengan-aura {
-  inset: -35%;
-  background: radial-gradient(circle, rgba(63,193,255,0.65) 0%, rgba(63,193,255,0.35) 36%, rgba(63,193,255,0.12) 55%, transparent 72%);
-  animation: rasengan-aura-fade 4.5s ease-in-out infinite;
+  inset: -38%;
+  background: radial-gradient(circle, rgba(160,230,255,0.75) 0%, rgba(63,193,255,0.45) 35%, rgba(29,111,209,0.18) 58%, transparent 75%);
+  animation: rasengan-aura-fade 3.8s ease-in-out infinite;
+}
+.fx-rasengan-aura-inner {
+  inset: -14%;
+  background: radial-gradient(circle, rgba(225,250,255,0.85) 0%, rgba(63,193,255,0.5) 45%, transparent 70%);
+  animation: pulse-glow 2.2s ease-in-out infinite;
 }
 .fx-rasengan-glow {
-  filter: drop-shadow(0 0 14px rgba(63,193,255,0.7)) drop-shadow(0 0 40px rgba(63,193,255,0.4)) drop-shadow(0 0 80px rgba(63,193,255,0.15));
+  filter: drop-shadow(0 0 16px rgba(63,193,255,0.85)) drop-shadow(0 0 45px rgba(63,193,255,0.55)) drop-shadow(0 0 90px rgba(63,193,255,0.25));
 }
 
 /* ── Sharingan ── */
 .fx-sharingan-img { animation: sharingan-spin-irregular 9s linear infinite; }
 .fx-sharingan-aura {
-  inset: -30%;
-  background: radial-gradient(circle, rgba(215,38,61,0.5) 0%, rgba(215,38,61,0.2) 40%, transparent 68%);
-  animation: pulse-glow 5s ease-in-out infinite;
+  inset: -35%;
+  background: radial-gradient(circle, rgba(215,38,61,0.6) 0%, rgba(215,38,61,0.25) 40%, transparent 70%);
+  animation: pulse-glow 4.5s ease-in-out infinite;
 }
 .fx-sharingan-glow {
-  filter: drop-shadow(0 0 10px rgba(215,38,61,0.65)) drop-shadow(0 0 28px rgba(215,38,61,0.35)) drop-shadow(0 0 60px rgba(215,38,61,0.12));
+  filter: drop-shadow(0 0 14px rgba(215,38,61,0.75)) drop-shadow(0 0 35px rgba(215,38,61,0.45)) drop-shadow(0 0 75px rgba(215,38,61,0.18));
 }
 
 /* ── Six Eyes ── */
 .fx-six-eyes-img { animation: six-eyes-reveal 6s ease-in-out infinite; }
 .fx-six-eyes-aura {
-  inset: -30%;
-  background: radial-gradient(circle, rgba(94,234,212,0.5) 0%, rgba(94,234,212,0.2) 40%, transparent 68%);
+  inset: -35%;
+  background: radial-gradient(circle, rgba(94,234,212,0.6) 0%, rgba(94,234,212,0.25) 40%, transparent 70%);
   animation: six-eyes-reveal 6s ease-in-out infinite;
 }
 
 /* ── Hollow Purple (cursed orb) ── */
 .fx-hollow-img { animation: aura-flicker-chaos 5s ease-in-out infinite; }
 .fx-hollow-aura {
-  inset: -40%;
-  background: radial-gradient(circle, rgba(157,92,255,0.6) 0%, rgba(199,123,255,0.35) 36%, rgba(157,92,255,0.12) 56%, transparent 72%);
-  animation: aura-flicker-chaos 4s ease-in-out infinite;
+  inset: -45%;
+  background: radial-gradient(circle, rgba(157,92,255,0.7) 0%, rgba(199,123,255,0.4) 36%, rgba(157,92,255,0.15) 56%, transparent 75%);
+  animation: aura-flicker-chaos 3.8s ease-in-out infinite;
 }
 .fx-hollow-glow {
-  filter: drop-shadow(0 0 14px rgba(157,92,255,0.7)) drop-shadow(0 0 36px rgba(157,92,255,0.4)) drop-shadow(0 0 70px rgba(157,92,255,0.18));
+  filter: drop-shadow(0 0 16px rgba(157,92,255,0.8)) drop-shadow(0 0 42px rgba(157,92,255,0.5)) drop-shadow(0 0 85px rgba(157,92,255,0.22));
 }
 
 /* ── Shinigami Eye — dark purple-black miasma roiling behind the red iris ── */
 .fx-shinigami-aura {
-  inset: -40%;
-  background: radial-gradient(circle, rgba(18,2,24,0.9) 0%, rgba(58,10,78,0.6) 32%, rgba(40,8,54,0.35) 52%, rgba(20,4,28,0.15) 68%, transparent 80%);
-  animation: aura-flicker-chaos 5s ease-in-out infinite;
+  inset: -45%;
+  background: radial-gradient(circle, rgba(18,2,24,0.95) 0%, rgba(58,10,78,0.7) 32%, rgba(40,8,54,0.4) 52%, rgba(20,4,28,0.2) 68%, transparent 82%);
+  animation: aura-flicker-chaos 4.5s ease-in-out infinite;
 }
 .fx-shinigami-glow {
-  filter: drop-shadow(0 0 10px rgba(20,4,28,0.95)) drop-shadow(0 0 24px rgba(80,20,100,0.4)) drop-shadow(0 0 50px rgba(157,92,255,0.18));
+  filter: drop-shadow(0 0 12px rgba(20,4,28,0.98)) drop-shadow(0 0 30px rgba(80,20,100,0.5)) drop-shadow(0 0 60px rgba(157,92,255,0.25));
 }
 
 /* ── Respect reduced motion ── */

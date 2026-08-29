@@ -14,7 +14,7 @@ interface SixEyesProps {
  * eye breathes open (scale up) then fades back, like Gojo unveiling the
  * Limitless. A cyan bloom pulses in time behind it. Uses full-quality PNG.
  */
-export function SixEyes({ size = 78, className, delay = 0 }: SixEyesProps) {
+export function SixEyes({ size = 95, className, delay = 0 }: SixEyesProps) {
   return (
     <div
       className={cn("fx", className)}

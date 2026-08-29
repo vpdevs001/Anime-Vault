@@ -17,7 +17,7 @@ interface CursedOrbProps {
  * energy) while the orb pulses. Uses the full-quality PNG from public/.
  */
 export function CursedOrb({
-  size = 90,
+  size = 110,
   className,
   rings = true,
   drift = true,
