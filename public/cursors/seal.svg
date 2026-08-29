@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <circle cx="14" cy="14" r="10.5" fill="none" stroke="#e63946" stroke-width="2"/>
+  <circle cx="14" cy="14" r="6.5" fill="none" stroke="#e63946" stroke-width="1.4" opacity="0.75"/>
+  <circle cx="14" cy="14" r="2.2" fill="#e63946"/>
+  <!-- ink-brush notch, so it doesn't read as a perfect machined ring -->
+  <path d="M22.5 8.5 L24.5 6.2" stroke="#e63946" stroke-width="1.6" stroke-linecap="round" opacity="0.6"/>
+</svg>
