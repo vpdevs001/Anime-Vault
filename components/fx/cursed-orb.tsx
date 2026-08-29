@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface CursedOrbProps {
@@ -11,8 +12,9 @@ interface CursedOrbProps {
 }
 
 /**
- * HOLLOW PURPLE — an orb of imaginary mass wrapped in rotating
- * cursed seal rings. The Jujutsu Kaisen counterweight to the Rasengan.
+ * HOLLOW PURPLE — an orb of imaginary mass rendered from the real art, wrapped
+ * in a chaotic cursed aura. The aura flickers and churns (unstable cursed
+ * energy) while the orb pulses. Uses the full-quality PNG from public/.
  */
 export function CursedOrb({
   size = 90,
@@ -22,7 +24,7 @@ export function CursedOrb({
 }: CursedOrbProps) {
   return (
     <div
-      className={cn("relative", drift && "animate-float", className)}
+      className={cn("fx", drift && "animate-float", className)}
       style={{ width: size, height: size }}
       aria-hidden
     >
@@ -33,18 +35,19 @@ export function CursedOrb({
           <div className="cursed-ring-rev absolute -inset-6" />
         </>
       )}
-      {/* Cursed aura */}
-      <div
-        className="absolute -inset-[40%] rounded-full animate-pulse-glow"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(157,92,255,0.35) 0%, transparent 65%)",
-        }}
-      />
-      {/* Imaginary mass */}
-      <div className="hollow-orb absolute inset-0" />
-      {/* White core */}
-      <div className="absolute inset-[32%] rounded-full bg-white/80 blur-[2px]" />
+      {/* Chaotic purple aura — roiling, unstable cursed energy */}
+      <div className="fx-aura fx-hollow-aura" />
+      {/* The orb of imaginary mass */}
+      <div className="fx-hollow-img fx-hollow-glow">
+        <Image
+          src="/hollow-purple.png"
+          alt=""
+          width={size}
+          height={size}
+          draggable={false}
+          priority
+        />
+      </div>
     </div>
   );
 }
