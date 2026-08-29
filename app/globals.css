@@ -122,7 +122,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  cursor: url('/cursors/kunai.svg') 6 6, auto;
+  cursor: url('/cursors/kunai.svg') 7 5, auto !important;
 }
 
 ::selection {
@@ -135,7 +135,10 @@ body {
    zero-JS, and doesn't add a mousemove listener re-rendering on every pixel
    (that would fight the performance work elsewhere in this pass). The kunai
    points on idle ground; interactive elements swap to a small hanko seal so
-   "this is clickable" reads instantly. */
+   "this is clickable" reads instantly. `!important` throughout: several
+   components apply Tailwind's own `cursor-pointer`/`cursor-default`
+   utilities directly, and without it those can win the cascade and silently
+   revert to the browser's default arrow depending on layer/order specifics. */
 a,
 button,
 [role="button"],
@@ -147,17 +150,17 @@ select,
 .card,
 .tag-chip,
 label[for] {
-  cursor: url('/cursors/seal.svg') 14 14, pointer;
+  cursor: url('/cursors/seal.svg') 14 14, pointer !important;
 }
 
 input:not([type="checkbox"]):not([type="radio"]),
 textarea {
-  cursor: text;
+  cursor: text !important;
 }
 
 button:disabled,
 [aria-disabled="true"] {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 /* ══════════════ TEXTURES & PATTERNS ══════════════ */
@@ -304,6 +307,18 @@ button:disabled,
   0%, 92%, 100% { opacity: 1; transform: scaleY(1); }
   95% { opacity: 0.85; transform: scaleY(0.94); }
   97% { opacity: 1; transform: scaleY(1); }
+}
+/* Six Eyes activation — a calmer, cooler flicker than the Sharingan's */
+@keyframes six-eyes-blink {
+  0%, 94%, 100% { opacity: 1; transform: scaleY(1); }
+  96.5% { opacity: 0.88; transform: scaleY(0.95); }
+  98% { opacity: 1; transform: scaleY(1); }
+}
+/* Nichirin mist — a soft wisp drifting sideways past the blade */
+@keyframes nichirin-mist-drift {
+  0% { transform: translateX(0) translateY(0); opacity: 0; }
+  20% { opacity: 0.55; }
+  100% { transform: translateX(10px) translateY(-30px); opacity: 0; }
 }
 /* Ember rising — hinokami particles climbing the night */
 @keyframes ember-rise {
@@ -483,6 +498,25 @@ button:disabled,
   filter: drop-shadow(0 0 8px rgba(215,38,61,0.6)) drop-shadow(0 0 20px rgba(215,38,61,0.3));
   animation: sharingan-blink 7s ease-in-out infinite;
   transform-origin: center;
+}
+
+/* ── SIX EYES — cooler cyan flicker on the eye SVG ── */
+.six-eyes-flicker {
+  filter: drop-shadow(0 0 8px rgba(94,234,212,0.6)) drop-shadow(0 0 22px rgba(94,234,212,0.3));
+  animation: six-eyes-blink 8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ── NICHIRIN MIST — drifting wisp beside the blade ── */
+.nichirin-mist-wisp {
+  position: absolute;
+  bottom: 20%;
+  width: 4px;
+  height: 16px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(143,227,216,0.5), transparent);
+  filter: blur(1.5px);
+  animation: nichirin-mist-drift 5.5s ease-out infinite;
 }
 
 /* ── CURSED SEAL — rotating jujutsu ring ── */

@@ -4,7 +4,9 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { Rasengan } from "@/components/fx/rasengan";
 import { Sharingan } from "@/components/fx/sharingan";
+import { SixEyes } from "@/components/fx/six-eyes";
 import { CursedOrb } from "@/components/fx/cursed-orb";
+import { TitanSteam } from "@/components/fx/titan-steam";
 import {
   BACKGROUND_IMAGES,
   FALLBACK_GRADIENTS,
@@ -73,13 +75,24 @@ export function HeroBanner() {
         忍
       </div>
 
-      {/* ── Layer 4: sharingan eyes — top-left, watching ── */}
+      {/* ── Layer 4: eyes, watching — one Sharingan (Naruto), one Six Eyes (JJK) ── */}
       <div className="absolute top-3 left-2 sm:top-5 sm:left-6 pointer-events-none">
         <Sharingan size={78} delay={0.6} />
       </div>
-      <div className="absolute top-16 left-20 sm:top-24 sm:left-32 pointer-events-none opacity-70">
-        <Sharingan size={52} delay={2.4} />
+      <div className="absolute top-16 left-20 sm:top-24 sm:left-32 pointer-events-none opacity-80">
+        <SixEyes size={54} delay={2.4} />
       </div>
+
+      {/* ── Layer 4b: Titan wings + steam — top-right, Attack on Titan flagship ── */}
+      <motion.div
+        className="absolute top-3 right-3 sm:top-5 sm:right-8 pointer-events-none"
+        initial={{ opacity: 0, y: -14 }}
+        animate={{ opacity: 0.95, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.9 }}
+      >
+        <TitanSteam size={64} className="sm:hidden" />
+        <TitanSteam size={84} className="hidden sm:block" />
+      </motion.div>
 
       {/* ── Layer 5: the Rasengan — floating right of center ── */}
       <motion.div
