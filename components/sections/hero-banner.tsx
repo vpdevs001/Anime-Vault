@@ -115,17 +115,21 @@ export function HeroBanner() {
         <CursedOrb size={44} />
       </motion.div>
 
-      {/* ── Layer 7: rising sparks inside the panel ── */}
+      {/* ── Layer 7: rising sparks inside the panel — fire palette only ── */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(7)].map((_, i) => (
+        {[...Array(7)].map((_, i) => {
+          const fireColors = ["#ff4a3d", "#ff6b1f", "#ff9f2e", "#ffc23d", "#ff5722", "#ffb74d", "#f2b33d"];
+          const color = fireColors[i % fireColors.length];
+          return (
           <motion.div
             key={i}
-            className="absolute rounded-full"
+            className="absolute"
             style={{
-              width: 2 + (i % 3),
-              height: 2 + (i % 3),
-              backgroundColor: i % 2 ? "#ff9f2e" : "#9d5cff",
-              boxShadow: `0 0 6px ${i % 2 ? "#ff9f2e" : "#9d5cff"}`,
+              width: 3 + (i % 3),
+              height: 3 + (i % 3),
+              borderRadius: "50% 50% 20% 20%",
+              backgroundColor: color,
+              boxShadow: `0 0 8px ${color}, 0 0 16px ${color}60`,
             }}
             initial={{
               x: `${12 + i * 13}%`,
@@ -143,7 +147,7 @@ export function HeroBanner() {
               ease: "linear",
             }}
           />
-        ))}
+        )})}
       </div>
 
       {/* ── Vertical brush caption — right edge ── */}
