@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Heart, ChevronDown, Loader2 } from "lucide-react";
 import { LinkCard } from "@/components/cards/link-card";
 import { PageHeader } from "@/components/ui/page-header";
+import { ShinigamiEye } from "@/components/fx/shinigami-eye";
 import { getFavoritesPage } from "@/lib/actions/links";
 
 export interface FavoritesClientProps {
@@ -59,7 +60,9 @@ export function FavoritesClient({ favorites: initialFavorites, total = 0, totalP
         kanji="印"
         accent="#d7263d"
         subtitle={`${total || favorites.length} ${(total || favorites.length) === 1 ? "scroll" : "scrolls"} bear your seal`}
-      />
+      >
+        <ShinigamiEye size={52} />
+      </PageHeader>
 
       {favorites.length === 0 ? (
         <motion.div
